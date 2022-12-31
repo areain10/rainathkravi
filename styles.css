@@ -45,6 +45,11 @@ h2{
 	font-size:2vmin;
 	font-family:"BlenderProBook",sans-serif;
 }
+h3{
+	font-size:2vmin;
+	font-family:"BlenderProBook",sans-serif;
+
+}
 /*Glitch*/
 .px-glitchtext {
   font-size: 5rem;
@@ -259,6 +264,7 @@ hr{
 }
 /*Main*/
 .main{
+	position:relative;
 	vertical-align:center;
 	text-align:center;
 	display:flex;
@@ -269,6 +275,13 @@ hr{
 	height:95vh;
 	overflow:hidden;
 	background:linear-gradient(var(--purple),black);
+	top:-100vh;
+	opacity:0;
+}
+.main.active{
+	top:0;
+	opacity:1;
+	transition:cubic-bezier(0,.52,.51,.99) 3s;
 }
 #iam{
 	height:4vh;
@@ -287,12 +300,24 @@ hr{
 	font-size:5vh;
 }
 .dd{
+	transform-origin:center;
 	text-align:center;
 	padding:auto;
 	margin:0;
 	height:auto;
 	width:auto;
 	font-size:15vw;
+	transition:ease-in-out 0.5s;
+}
+.dd:hover{
+	font-size:20vw;
+}
+.cursor.hov{
+	transform:translate(-2.5vw,-2.5vw);
+	width:5vw;
+	aspect-ratio:1;
+	border:3px dashed var(--lightblue);
+	animation: rotate 1.5s linear infinite;
 }
 .hire{
 	display:flex;
@@ -300,6 +325,11 @@ hr{
 	height:20vh;
 	justify-content:space-evenly;
 	top:-10vh;	
+}
+.btn{
+	font-size:0.6vw;
+	width:15vw;
+	height:4vh;
 }
 .portrait{
 	width:100vw;
@@ -315,7 +345,25 @@ hr{
 .fade{
 	box-shadown:
 }
-
+.cursor{
+	top:50vh;
+	left:50vw;
+	pointer-events:none;
+	z-index:12;
+	display:none;
+	position:absolute;
+	border-radius:50%;
+	width:2.5vw;
+	transform-origin:center;
+	transform:translate(-1.25vw ,-1.25vw);
+	aspect-ratio:1;
+	background:rgba(0,0,0,0);
+	border:5px solid var(--lightpurple);
+}
+@keyframes rotate{
+	0%{transform:translate(-2.5vw,-2.5vw)rotate(0deg)}
+	100%{transform: translate(-2.5vw,-2.5vw)rotate(360deg)}
+}
 /*Portfolio*/
 
 .port{
@@ -330,7 +378,7 @@ hr{
 	justify-content:space-between;
 	min-width:98vw;
 	height:4vh;
-	padding:2vh 1vw 1vh 1vw;
+	padding:2vh 1vw 4vh 1vw;
 	background:var(--purple);
 }
 .linkholder{
