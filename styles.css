@@ -350,7 +350,6 @@ hr{
 	left:50vw;
 	pointer-events:none;
 	z-index:12;
-	display:none;
 	position:absolute;
 	border-radius:50%;
 	width:2.5vw;

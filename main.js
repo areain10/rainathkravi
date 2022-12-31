@@ -31,9 +31,6 @@ window.addEventListener('DOMContentLoaded',()=>{
 	setTimeout(()=>{
 		main.classList.add('active');
 	},10000);
-	setTimeout(()=>{
-		cursor.style.display ="block";
-	},13000);
 	
 });
 
