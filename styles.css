@@ -37,7 +37,18 @@ body{
 	margin:0;
 	background-color:black;
 	color:white;
+  font-family: termina, sans-serif;
+
+
+  transition: 0.3s ease-out;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100vw;
+  height: 100vh;
+  overscroll-behavior: none;
 }
+
+
 h1{
 	font-family:"BlenderProHeavy",sans-serif;
 }
@@ -366,11 +377,274 @@ hr{
 /*Portfolio*/
 
 .port{
-	width:100vw;
-	height:80vh
+  width: 375px;
+  height: 667px;
+  background: #DBD0BC;
+  overflow-y: scroll;
+  display: grid;
+  place-items: center;
+	padding: var(--gutter) 0;
+  display: grid;
+  grid-gap: var(--gutter) 0;
+  grid-template-columns: var(--gutter) 1fr var(--gutter);
+  align-content: start;
+  width:100vw;
+	height:95vh;
+  background:red;
+}/*
+.hs:before,
+.hs:after {
+  content: '';
+}
+.hs > li,
+.item {
+  scroll-snap-align: center;
+  padding: 3vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border-radius: 3vw;
+  width:10vw;
+	height:8vh;
+}
+.hs {
+  display: grid;
+  grid-gap: calc(var(--gutter) / 2);
+  grid-template-columns: 10px repeat(6, calc(50% - var(--gutter) * 2)) 10px;
+  grid-template-rows: minmax(150px, 1fr);
+  
+  overflow-x: scroll;
+  scroll-snap-type: x proximity;
+  padding-bottom: calc(.75 * var(--gutter));
+  margin-bottom: calc(-.5 * var(--gutter));
 }
 
-/*Navigation bar*/
+.hs:before,
+.hs:after {
+  content: '';
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+.hide-scroll {
+  overflow-y: hidden;
+  margin-bottom: calc(-.1 * var(--gutter));
+  width:100vw;
+	height: 50vh;
+}
+.full {
+  grid-column: 1 / -1;
+}
+* {
+  grid-column: 2 / -2;
+}
+.app {
+  padding: var(--gutter) 0;
+  display: grid;
+  grid-gap: var(--gutter) 0;
+  grid-template-columns: var(--gutter) 1fr var(--gutter);
+  align-content: start;
+}
+
+:root {
+  --gutter: 20px;
+}
+
+.app {
+  padding: var(--gutter) 0;
+  display: grid;
+  grid-gap: var(--gutter) 0;
+  grid-template-columns: var(--gutter) 1fr var(--gutter);
+  align-content: start;
+}
+
+.app > * {
+  grid-column: 2 / -2;
+}
+
+.app > .full {
+  grid-column: 1 / -1;
+}
+
+.hs {
+  display: grid;
+  grid-gap: calc(var(--gutter) / 2);
+  grid-template-columns: 10px repeat(6, calc(50% - var(--gutter) * 2)) 10px;
+  grid-template-rows: minmax(150px, 1fr);
+  
+  overflow-x: scroll;
+  scroll-snap-type: x proximity;
+  padding-bottom: calc(.75 * var(--gutter));
+  margin-bottom: calc(-.5 * var(--gutter));
+}
+
+.hs:before,
+.hs:after {
+  content: '';
+}
+
+/* Hide scrollbar */
+.hide-scroll {
+  overflow-y: hidden;
+  margin-bottom: calc(-.1 * var(--gutter));
+}
+
+
+/* Demo styles */
+
+.mainContainer{
+  height: 100vh;
+  max-height: 100vh;
+  display: block;
+  background-image: url("images/lily.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.hs > li,
+.item {
+  scroll-snap-align: center;
+  padding: calc(var(--gutter) / 2 * 1.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ 
+  border-radius: 8px;
+}
+#sectionPin {
+  overflow-y:scroll;
+  overflow-x:hidden;
+  transform: rotate(270deg)translateX(-70vh) ;
+  transform-origin: top left;
+  width:70vh;
+  height:100vw;
+}
+
+#sectionPin::-webkit-scrollbar {
+  display: none;
+}
+.pin-wrap {
+  width:100vw;
+  height: 70vh;
+  transform: rotate(90deg) translateY(-70vh);
+  transform-origin: top left;
+  white-space:nowrap;
+  font-size:0;
+  
+}
+.nav{
+display: block;
+  align-content:baseline;
+
+  height: 100%;
+  grid-template-columns: auto;
+}
+.link{
+  margin-top: 2vh;
+display: grid;
+  justify-items: center;
+  color:black;
+  font-size: 2vh;
+  align-content: center;
+  align-items: center;
+}
+.portfolioList{
+  display: grid;
+  column-gap: 2vw;
+  row-gap: 2vh;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+  height:100%;
+  padding: 2vh;
+  justify-items: center;
+  align-items: center;
+}
+.portboxes{
+  height:100%;
+  width:50vw;
+}
+.introsec{
+  width:30vw;
+  
+  
+}
+.divider{
+  background-color: gray;
+  width:0.2vw;
+  height: 50%;
+  
+  border-radius: 3vw;
+}
+.portHeader{
+  margin-top: 3vh;
+  font-size: 3vw;
+  color:black;
+  text-align: center;
+}
+.portsubname{
+  font-size: 1.5vw;
+  color: black;
+  
+  text-align: center;
+}
+.portname{
+  font-size:8vw;
+  color:black;
+  text-align: center;
+}
+.projects{
+  width: 50vw;
+  
+}
+.collabsList{
+  display: flex;
+}
+.collabItem{
+  width: 20vw;
+  height:11.25vw;
+}
+.collabimg{
+  width: 20vw;
+  height:11.25vw;
+}
+.portItem{
+
+  justify-content: center;
+  align-content: center;
+  max-width: 18vw;
+  max-height: 11vw;
+  width: 18vw;
+  height: 14vw;
+  display: grid;
+  color:black;
+  margin-bottom: 1vh;
+
+
+}
+.gameJamDescription{
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+.portList{
+  display:grid;
+  grid-template-columns: auto auto;
+  column-gap: 1vw;
+}
+.gamejams{
+  width:40vw;
+}
+.portImg{
+  max-width: 16vw;
+  max-height: 9vw;
+  width: 16vw;
+  height: 9vw;
+}
+/*Navigation bar padding: 50px 10vw;*/
 .navbar{
 	z-index:1;
 	display:flex;
@@ -384,9 +658,7 @@ hr{
 	padding:0 1vw 0 1vw;
 	display:flex;
 }
-.link{
-	padding:0 1vw 0 1vw;
-}
+
 /*Intro*/
 .intro{
         position:absolute;

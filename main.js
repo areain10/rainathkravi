@@ -2,6 +2,9 @@ let intro = document.querySelector('.intro');
 let name = document.querySelector('.name-header');
 let nameSpan = document.querySelectorAll('.name');
 let main = document.querySelector('.main');
+
+
+
 window.addEventListener('DOMContentLoaded',()=>{
         setTimeout(()=>{
                 for(let i=0;i<3;i++){
@@ -31,6 +34,7 @@ window.addEventListener('DOMContentLoaded',()=>{
 	setTimeout(()=>{
 		main.classList.add('active');
 	},10000);
+        
 	
 });
 
@@ -59,4 +63,9 @@ dd.forEach((d,i)=>{
 		cursor.classList.remove('hov');
 	});
 });
+
+
+
+
+
 

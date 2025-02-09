@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-<div class=cursor></div>
+	<!--<
 	  <div class="intro">
 		  <div class="introtext">
                         <h1 class="name-header">
@@ -19,30 +19,189 @@
 		</div>
 		<h1><span class="name rain px-glitchtext px-glitchtext-anim">RAIN</span></h1>
 		</div> 
-	<div class="navbar">
-		<h2>RAIN</h2>
-		<div class="linkholder">
-			<h2 class="link">Portfolio</h>
-			<h2 class="link">Services</h>
-			<h2 class="link">Contact</h>
+		<div class="navbar">
+			<h2>RAIN</h2>
+			<div class="linkholder">
+				<h2 class="link">Portfolio</h>
+				<h2 class="link">Services</h>
+				<h2 class="link">Contact</h>
+			</div>
+		</div>
+		<div class="main ">
+			<h2 id="iam">I am a web</h2>
+			<h1 id="developer" class="dd">DEVELOPER</h1>
+			<h1 class="dd"><hr>DESIGNER</h1>
+			<div class="hire">
+				<button type="button" class="btn btn-light"><h3>You're looking to hire</h3></button>
+				<button type="button" class="btn btn-outline-light"><h3>You're looking to commission</h3></button>
+			</div>
+			<div class="portrait">
+				<img class="suitpic" src="images/suit1.PNG">
+				<img class="suitpic clipPath" src="images/suit1.PNG">
+			</div>
+		</div>
+	div class="port">
+		<div class="full hide-scroll">
+			<ul class="hs">
+				<li class="item">test</li>
+				<li class="item">test</li>
+				<li class="item">test</li>
+				<li class="item">test</li>
+				<li class="item">test</li>
+				<li class="item">test</li>
+			  </ul>
 		</div>
 	</div>
-	<div class="main">
-		<h2 id="iam">I am a web</h2>
-		<h1 id="developer" class="dd">DEVELOPER</h1>
-		<h1 class="dd"><hr>DESIGNER</h1>
-		<div class="hire">
-			<button type="button" class="btn btn-light"><h3>You're looking to hire</h3></button>
-			<button type="button" class="btn btn-outline-light"><h3>You're looking to commission</h3></button>
+	<div class="app">
+		<h1>Some headline</h1>
+	  
+		<div class="full hide-scroll">
+	  
+		  <ul class="hs">
+			<li class="item">test</li>
+			<li class="item">test</li>
+			<li class="item">test</li>
+			<li class="item">test</li>
+			<li class="item">test</li>
+			<li class="item">test</li>
+		  </ul>
+	  
 		</div>
-		<div class="portrait">
-			<img class="suitpic" src="images/suit1.PNG">
-			<img class="suitpic clipPath" src="images/suit1.PNG">
+	  
+		<div class="container">
+		  <div class="item">
+			<h3>Block for context</h3>
+		  </div>
 		</div>
-	</div>
-	<div class="port">
+	  </div>
+	-->
+	<div class="cursor"></div>
+	<div class="mainContainer">
+		<section id="sectionPin">
+			<div class="pin-wrap">	
+				<ul class="portfolioList">
+					<div class="portboxes introsec">
+						<h1 class="portname">RAIN</h1>
+						<h1 class="portsubname">Game Designer/Producer</h1>
+						<li class="nav">
+							<h2 class="link">Projects</h>
+							<h2 class="link">Personal Projects</h>
+							<h2 class="link">Game Jams</h>
+							<h2 class="link">Services</h>
+							<h2 class="link">Contact</h>
+						</li>
+					</div>
+					<div class="divider"></div>
+					<div class="portboxes projects">
+						<h1 class="portHeader">PERSONAL PROJECTS</h1>
+						
+						
+					</div>
+					<div class="divider"></div>
+					<div class="portboxes ">
+						<h1 class="portHeader">COLLABORATIVE PROJECTS</h1>
+						<ul class="collabsList">
+							<li class="collabItem">
+								<img class="collabimg" src="images/tomo.png">
+								
+							</li>
+						</ul>
+						
+					</div>
+					<div class="divider"></div>
+					<div class="portboxes gamejams"><h1 class="portHeader">GAME JAMS</h1>
+						
+						<ul class="portList">
+							<li class="portItem">
+								<img class="portImg"src="images/testimg.png" >
+								<h3 class="gameJamDescription">GoldenFish</h3>
+							</li>
+							<li class="portItem">
+								<img class="portImg"src="images/testimg.png" >
+								<h3 class="gameJamDescription">GoldenFish</h3>
+							</li>
+							<li class="portItem">
+								<img class="portImg"src="images/testimg.png" >
+								<h3 class="gameJamDescription">GoldenFish</h3>
+							</li>
+				
+						</ul>
+					</div>
+					<div class="divider"></div>
+					<div class="portboxes gamejams"></div>
+				</ul>
+			</div>
+		</section>
 		
 	</div>
+		
+	
+
 	<script src="main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollToPlugin.min.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded',()=>{
+		gsap.registerPlugin(ScrollTrigger);
+
+		const pageContainer = document.querySelector(".container");
+		};
+		/* SMOOTH SCROLL */
+		const scroller = new LocomotiveScroll({
+		  el: pageContainer,
+		  smooth: true
+		});
+		
+		scroller.on("scroll", ScrollTrigger.update);
+		
+		ScrollTrigger.scrollerProxy(pageContainer, {
+		  scrollTop(value) {
+			return arguments.length
+			  ? scroller.scrollTo(value, 0, 0)
+			  : scroller.scroll.instance.scroll.y;
+		  },
+		  getBoundingClientRect() {
+			return {
+			  left: 0,
+			  top: 0,
+			  width: window.innerWidth,
+			  height: window.innerHeight
+			};
+		  },
+		  pinType: pageContainer.style.transform ? "transform" : "fixed"
+		});
+		
+		////////////////////////////////////
+		////////////////////////////////////
+		window.addEventListener("load", function () {
+		  let pinBoxes = document.querySelectorAll(".pin-wrap > *");
+		  let pinWrap = document.querySelector(".pin-wrap");
+		  let pinWrapWidth = pinWrap.offsetWidth;
+		  let horizontalScrollLength = pinWrapWidth - window.innerWidth;
+		
+		  // Pinning and horizontal scrolling
+		
+		  gsap.to(".pin-wrap", {
+			scrollTrigger: {
+			  scroller: pageContainer, //locomotive-scroll
+			  scrub: true,
+			  trigger: "#sectionPin",
+			  pin: true,
+			  // anticipatePin: 1,
+			  start: "top top",
+			  end: pinWrapWidth
+			},
+			x: -horizontalScrollLength,
+			ease: "none"
+		  });
+		
+		  ScrollTrigger.addEventListener("refresh", () => scroller.update()); //locomotive-scroll
+		
+		  ScrollTrigger.refresh();
+		});
+		</script>
   </body>
 </html>
