@@ -353,9 +353,7 @@ hr{
 	width:20vw;
 	height:auto;
 }
-.fade{
-	box-shadown:
-}
+
 .cursor{
 	top:50vh;
 	left:50vw;
@@ -497,7 +495,7 @@ ul {
   width: 100vw;
   object-fit: cover;
 }
-.
+
 /* Demo styles */
 
 .mainContainer{
@@ -562,7 +560,7 @@ display: grid;
   display: grid;
   column-gap: 2vw;
   row-gap: 2vh;
-  grid-template-columns: auto auto auto auto auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
   height:100%;
   padding: 2vh;
   justify-items: center;
@@ -576,6 +574,10 @@ display: grid;
   width:30vw;
   
   
+}
+.servcont{
+  width: 46.7vw;
+  height:100%;
 }
 .divider{
   background-color: gray;
@@ -654,6 +656,7 @@ a, a:hover, a:visited, a:active {
 }
 
 .pptext{
+  font-size: 2vh;
   filter: brightness(100%);
   justify-self: center;
   align-self: center;
@@ -708,6 +711,7 @@ a, a:hover, a:visited, a:active {
 }
 .gamejams{
   width:40vw;
+  height: 100%;
 }
 .portImg{
   max-width: 16vw;
@@ -730,6 +734,92 @@ a, a:hover, a:visited, a:active {
 	display:flex;
 }
 
+
+.card h2{
+  color: #2C6E49;
+}
+.card p{
+  color: #2C6E49;
+}
+.card {
+  background-color: transparent;
+  border-radius: 1vw;
+  padding: 1vh;
+  height: 40vh;
+  width: 100%;
+  margin: 2vw;
+}
+
+.card img {
+  width: 12vw;
+  height: 12vw;
+  filter: grayscale(100%);
+  padding: 0;
+}
+
+.img-container {
+  position: relative;
+  margin-bottom: .5rem;
+}
+
+.img-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12vw;
+  height: 12vw;
+  background-color: #2C6E49;
+  opacity: .2;
+}
+
+.role {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1vw;
+  color: #2C6E49;
+}
+
+/* Roll-link */
+.roll-link {
+  position: relative;
+  height: 20vh;
+  width: fit-content;
+
+  overflow: hidden;
+  color: #2C6E49;
+  font-size: 1vw;
+}
+
+.roll-link div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 10vh;
+  transition: transform 0.5s ease;
+  color: #2C6E49;
+  font-size: 1vw;
+}
+
+/* Underline roll-link */
+.roll-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: .1em;
+  background-color: #2C6E49;
+  transition: width 0.5s ease-out;
+}
+
+/* Hover roll-links */
+.roll-link:hover div {
+  transform: translateY(-50%);
+}
+
+.roll-link:hover::after {
+  width: 100%;
+}
 /*Intro*/
 .intro{
         position:absolute;
@@ -755,8 +845,7 @@ a, a:hover, a:visited, a:active {
 	width:80vw;
 	height:80vh;
 }
-.name-header{
-}
+
 .name{
 
 	text-align:left;

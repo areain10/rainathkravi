@@ -90,8 +90,8 @@
 							<a href="#projectSec"><h2 class="link">Personal Projects</h></a>
 							<a href="#collabSec"><h2 class="link">Collaborative Projects</h></a>
 							<a href="#gamejamSec"><h2 class="link">Game Jams</h></a>
-							<a href="#projectSec"><h2 class="link">Services</h></a>
-							<a href="#projectSec"><h2 class="link">Contact</h></a>
+							<a href="#servCont"><h2 class="link">Services</h></a>
+							<a href="#servCont"><h2 class="link">Contact</h></a>
 						</li>
 					</div>
 					<div class="divider"></div>
@@ -153,7 +153,36 @@
 						</ul>
 					</div>
 					<div class="divider"></div>
-					<div class="portboxes gamejams"></div>
+					<div class="portboxes servcont" id="servCont">
+						<h1 class="portHeader">SERVICES</h1>	
+
+					</div>
+					<div class="divider"></div>
+					<div class="portboxes servcont "id="servCont">
+						<h1 class="portHeader">CONTACT</h1>
+						<div class="card">
+							<div class="img-container">
+							  <img src="https://xsgames.co/randomusers/avatar.php?g=male" />
+							  <div class="img-overlay"></div>
+							</div>
+							<h2>John Doe Smith</h2>
+							<p class="role">UX manager, partner</p>
+							<div class="roll-link">
+							  <div>
+								<p>jds@company.com</p>
+								<a href="#">jds@company.com</a>
+							  </div>
+							</div>
+							<div class="roll-link">
+							  <div>
+								<p>+45 12345678</p>
+								<a href="#">+45 12345678</a>
+							  </div>
+							</div>
+						  </div>
+					</div>
+					
+					
 				</ul>
 			</div>
 		</section>
@@ -173,7 +202,7 @@
 		gsap.registerPlugin(ScrollTrigger);
 
 		const pageContainer = document.querySelector(".container");
-		};
+		});
 		/* SMOOTH SCROLL */
 		const scroller = new LocomotiveScroll({
 		  el: pageContainer,
