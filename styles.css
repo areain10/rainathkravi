@@ -1065,8 +1065,12 @@ a, a:hover, a:visited, a:active {
   .portHeader { font-size: 6vw !important; }
   .portname { font-size: 10vh !important; }
 
-  /* horizontal divider between sections */
-  .divider { width: 85% !important; height: 6px !important; margin: 2vh auto !important; border-radius: 3px !important; }
+  /* horizontal divider between sections — thin line */
+  .divider { width: 85% !important; height: 2px !important; margin: 1.5vh auto !important; border-radius: 2px !important; }
+
+  /* Hide background video on mobile and use vertical background image */
+  #myVideo { display: none !important; }
+  .mainContainer { background-image: url("images/vertical background.png") !important; background-size: cover !important; background-position: right center !important; }
 }
 
 @media (max-width: 480px) {
@@ -1074,7 +1078,8 @@ a, a:hover, a:visited, a:active {
   .collabItem, .portItem { padding: 6vh 0 !important; }
   .portHeader { font-size: 7.5vw !important; }
   .portname { font-size: 9vh !important; }
-  .divider { width: 92% !important; }
-  /* ensure video stays anchored to right but doesn't overflow */
-  #myVideo { object-position: right center !important; min-width: 120% !important; }
+  .divider { width: 92% !important; height: 2px !important; margin: 1.5vh auto !important; }
+  /* hide video on small screens and use vertical background image */
+  #myVideo { display: none !important; }
+  .mainContainer { background-image: url("images/vertical background.png") !important; background-size: cover !important; background-position: right center !important; }
 }
