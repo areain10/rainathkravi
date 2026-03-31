@@ -562,7 +562,7 @@ display: grid;
   row-gap: 2vh;
   grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
   height:100%;
-  padding: 2vh;
+  padding: 1vh;
   justify-items: center;
   align-items: center;
 }
@@ -580,14 +580,20 @@ display: grid;
   height:100%;
 }
 .contactsec{
-  width: 20.7vw;
-  height:100%;
+  width: auto;
+  max-width: 100%;
+  padding: 0.5vw 1vw;
+  box-sizing: border-box;
+  height: auto;
+  min-height: fit-content;
+  overflow: visible;
 }
 .divider{
   background-color: gray;
-  width:0.2vw;
-  height: 50%;
-  
+  width:0.4vw;
+  align-self: stretch;
+  height: 100%;
+  min-height: 60vh;
   border-radius: 3vw;
 }
 .portHeader{
@@ -668,26 +674,45 @@ a, a:hover, a:visited, a:active {
   position:absolute;
 }
 .collabsList{
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: auto;
+  gap: 1vw;
+  justify-items: center;
+  align-items: start;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 .collabdesc{
   color: black;
   font-size: 2vw;
+  margin: 0.5vw 0 0 0;
 }
 .collabItem{
-  width: 25vw;
-  height:18vw;
-  margin: 1vw;
-  
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .collabbox{
-  width: 60vw;
+  width: auto;
+  max-width: 100%;
+  padding: 0.5vw 1vw;
+  box-sizing: border-box;
+  height: auto;
+  min-height: fit-content;
+  overflow: visible;
 }
 .collabimg{
-  width: 25vw;
-  height:14vw;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
 }
 .portItem{
 
@@ -710,19 +735,54 @@ a, a:hover, a:visited, a:active {
   justify-items: center;
 }
 .portList{
-  display:grid;
-  grid-template-columns: auto auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   column-gap: 1vw;
+  gap: 1vw;
+  width: 100%;
 }
 .gamejams{
-  width:40vw;
-  height: 100%;
+  width: auto;
+  max-width: 100%;
+  padding: 0.5vw 1vw;
+  box-sizing: border-box;
+  height: auto;
+  min-height: fit-content;
+  overflow: visible;
+}
+
+/* Responsive adjustments for collab list to avoid overflow */
+@media (max-width: 900px) {
+  .collabItem{
+    width: 45vw;
+    height: auto;
+  }
+  .collabimg{
+    max-width: 100%;
+    max-height: none;
+  }
+  .collabbox{
+    width: 90vw;
+  }
+  .collabdesc{
+    font-size: 4vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .collabItem{
+    width: 90vw;
+  }
+  .collabdesc{
+    font-size: 5vw;
+  }
 }
 .portImg{
+  width: 100%;
+  height: auto;
   max-width: 16vw;
-  max-height: 9vw;
-  width: 16vw;
-  height: 9vw;
+  max-height: 12vw;
+  object-fit: cover;
 }
 /*Navigation bar padding: 50px 10vw;*/
 .navbar{
@@ -790,6 +850,102 @@ a, a:hover, a:visited, a:active {
   position: relative;
   height: 20vh;
   width: fit-content;
+
+
+/* ===== Mobile-friendly vertical layout overrides ===== */
+/* Convert horizontal/rotated layout to standard vertical flow */
+#sectionPin {
+  position: relative !important;
+  overflow: visible !important;
+  transform: none !important;
+  transform-origin: unset !important;
+  width: 100% !important;
+  height: auto !important;
+}
+.pin-wrap {
+  width: 100% !important;
+  height: auto !important;
+  transform: none !important;
+  transform-origin: unset !important;
+  white-space: normal !important;
+  font-size: initial !important;
+  display: block !important;
+}
+.portfolioList{
+  display: block !important;
+  grid-template-columns: none !important;
+  column-gap: 0 !important;
+  row-gap: 0 !important;
+  padding: 0 !important;
+}
+.portboxes{
+  width: 100% !important;
+  height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 2vh 4vw !important;
+  box-sizing: border-box !important;
+}
+/* Horizontal divider between vertically stacked sections */
+.divider{
+  background-color: gray !important;
+  width: 80% !important;
+  height: 6px !important;
+  margin: 2vh auto !important;
+  border-radius: 3px !important;
+}
+
+/* Make collab and port lists show one item per viewport (stacked) */
+.collabsList, .portList {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 100% !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.collabItem, .portItem {
+  width: 100% !important;
+  height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-direction: column !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+.collabimg, .portImg{
+  max-width: 80% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+/* Anchor background video to the right and cover viewport */
+#myVideo{
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: auto !important;
+  bottom: 0 !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: cover !important;
+  object-position: right center !important;
+  z-index: -1 !important;
+}
+
+/* Small-screen tweaks */
+@media (max-width: 900px){
+  .portboxes{ padding: 2vh 6vw !important; }
+  .collabimg, .portImg{ max-width: 90% !important; }
+  .divider{ width: 90% !important; }
+}
 
   overflow: hidden;
   color: #2C6E49;
