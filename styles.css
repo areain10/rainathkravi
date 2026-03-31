@@ -1070,7 +1070,50 @@ a, a:hover, a:visited, a:active {
 
   /* Hide background video on mobile and use vertical background image */
   #myVideo { display: none !important; }
-  .mainContainer { background-image: url("images/vertical.avif") !important; background-size: cover !important; background-position: right center !important; }
+  .mainContainer { background-image: url("images/vertical.jpg") !important; background-size: cover !important; background-position: right center !important; }
+
+  /* Make game-jam tiles fill width and center content like collab items */
+  .portList { display: block !important; }
+  .portItem {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 0 2vh 0 !important;
+    padding: 4vh 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+  .portImg {
+    width: 90% !important;
+    max-width: 420px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin-bottom: 1.5vh !important;
+  }
+
+  /* Center contact card content and make images responsive */
+  .contactsec .card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 3vh 4vw !important;
+    margin: 1vh 0 !important;
+  }
+  .contactsec .card img {
+    width: 50% !important;
+    max-width: 220px !important;
+    height: auto !important;
+    object-fit: cover !important;
+    border-radius: 6px !important;
+    margin-bottom: 1vh !important;
+  }
+  .contactsec .card h2, .contactsec .card p { text-align: center !important; }
 }
 
 @media (max-width: 480px) {
@@ -1081,7 +1124,23 @@ a, a:hover, a:visited, a:active {
   .divider { width: 92% !important; height: 2px !important; margin: 1.5vh auto !important; }
   /* hide video on small screens and use vertical background image */
   #myVideo { display: none !important; }
-  .mainContainer { background-image: url("images/vertical background.png") !important; background-size: cover !important; background-position: right center !important; }
+  .mainContainer { background-image: url("images/vertical.jpg") !important; background-size: cover !important; background-position: right center !important; }
+  /* ensure game jam images and tiles fill mobile width and center */
+  .portItem {
+    width: 100% !important;
+    padding: 6vh 0 !important;
+    margin: 0 0 2vh 0 !important;
+  }
+  .portImg {
+    width: 92% !important;
+    max-width: none !important;
+    height: auto !important;
+  }
+  /* contact card tweaks for very small screens */
+  .contactsec .card {
+    padding: 3vh 6vw !important;
+  }
+  .contactsec .card img { width: 60% !important; max-width: 280px !important; }
 }
 
 /* Ensure divider and custom cursor are hidden on narrow screens to avoid large blocks */
