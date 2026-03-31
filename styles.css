@@ -1070,7 +1070,7 @@ a, a:hover, a:visited, a:active {
 
   /* Hide background video on mobile and use vertical background image */
   #myVideo { display: none !important; }
-  .mainContainer { background-image: url("images/vertical background.png") !important; background-size: cover !important; background-position: right center !important; }
+  .mainContainer { background-image: url("images/vertical.avif") !important; background-size: cover !important; background-position: right center !important; }
 }
 
 @media (max-width: 480px) {
@@ -1082,4 +1082,15 @@ a, a:hover, a:visited, a:active {
   /* hide video on small screens and use vertical background image */
   #myVideo { display: none !important; }
   .mainContainer { background-image: url("images/vertical background.png") !important; background-size: cover !important; background-position: right center !important; }
+}
+
+/* Ensure divider and custom cursor are hidden on narrow screens to avoid large blocks */
+@media (max-width: 900px) {
+  .divider { display: none !important; }
+  .cursor { display: none !important; }
+}
+
+@media (max-width: 480px) {
+  .divider { display: none !important; }
+  .cursor { display: none !important; }
 }
