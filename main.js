@@ -38,31 +38,6 @@ window.addEventListener('DOMContentLoaded',()=>{
 	
 });
 
-let cursor = document.querySelector(".cursor");
-document.addEventListener('mousemove',(e)=>{
-	let x = e.clientX;
-	let y = e.pageY;
-	cursor.style.left = x+"px";
-	cursor.style.top = y+"px";
-});
-document.addEventListener('wheel',(e)=>{
-	let x = e.clientX;
-	let y = e.pageY;
-	cursor.style.left = x+"px";
-	cursor.style.top = y+"px";
-});
-
-let dd = document.querySelectorAll(".dd");
-
-dd.forEach((d,i)=>{
-
-	d.addEventListener('mouseover',()=>{
-		cursor.classList.add('hov');
-	});
-	d.addEventListener('mouseout',()=>{
-		cursor.classList.remove('hov');
-	});
-});
 
 
 

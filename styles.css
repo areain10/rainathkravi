@@ -323,13 +323,6 @@ hr{
 .dd:hover{
 	font-size:20vw;
 }
-.cursor.hov{
-	transform:translate(-2.5vw,-2.5vw);
-	width:5vw;
-	aspect-ratio:1;
-	border:3px dashed var(--lightblue);
-	animation: rotate 1.5s linear infinite;
-}
 .hire{
 	display:flex;
 	width:100vw;
@@ -355,18 +348,7 @@ hr{
 }
 
 .cursor{
-	top:50vh;
-	left:50vw;
-	pointer-events:none;
-	z-index:12;
-	position:absolute;
-	border-radius:50%;
-	width:2.5vw;
-	transform-origin:center;
-	transform:translate(-1.25vw ,-1.25vw);
-	aspect-ratio:1;
-	background:rgba(0,0,0,0);
-	border:5px solid var(--lightpurple);
+	display: none;
 }
 @keyframes rotate{
 	0%{transform:translate(-2.5vw,-2.5vw)rotate(0deg)}
@@ -552,7 +534,8 @@ display: block;
 display: grid;
   justify-items: center;
   color:black;
-  font-size: 2vh;
+  font-size: 2.5vh;
+  font-weight: bold;
   align-content: center;
   align-items: center;
 }
@@ -564,7 +547,7 @@ display: grid;
   height:100%;
   padding: 1vh;
   justify-items: center;
-  align-items: center;
+  align-items: start;
 }
 .portboxes{
   height:100%;
@@ -603,7 +586,8 @@ display: grid;
   text-align: center;
 }
 .portfullname{
-  font-size: 1vw;
+  font-size: 1.5vw;
+  font-weight: bold;
   color: black;
   text-align: center;
 }
@@ -686,7 +670,7 @@ a, a:hover, a:visited, a:active {
 }
 .collabdesc{
   color: black;
-  font-size: 2vw;
+  font-size: 1.5vw;
   margin: 0.5vw 0 0 0;
 }
 .collabItem{
@@ -704,8 +688,7 @@ a, a:hover, a:visited, a:active {
   max-width: 100%;
   padding: 0.5vw 1vw;
   box-sizing: border-box;
-  height: auto;
-  min-height: fit-content;
+  height: 100%;
   overflow: visible;
 }
 .collabimg{
@@ -715,30 +698,30 @@ a, a:hover, a:visited, a:active {
   display: block;
 }
 .portItem{
-
-  justify-content: center;
-  align-content: center;
-  max-width: 18vw;
-  max-height: 11vw;
-  width: 18vw;
-  height: 14vw;
-  display: grid;
-  color:black;
-  margin-bottom: 1vh;
-  margin: 1vw;
-
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .gameJamDescription{
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  justify-items: center;
+  color: black;
+  font-size: 1.5vw;
+  margin: 0.5vw 0 0 0;
 }
 .portList{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  column-gap: 1vw;
+  grid-auto-rows: auto;
   gap: 1vw;
+  justify-items: center;
+  align-items: start;
+  padding: 0;
+  margin: 0;
+  list-style: none;
   width: 100%;
 }
 .gamejams{
@@ -746,8 +729,7 @@ a, a:hover, a:visited, a:active {
   max-width: 100%;
   padding: 0.5vw 1vw;
   box-sizing: border-box;
-  height: auto;
-  min-height: fit-content;
+  height: 100%;
   overflow: visible;
 }
 
@@ -780,9 +762,8 @@ a, a:hover, a:visited, a:active {
 .portImg{
   width: 100%;
   height: auto;
-  max-width: 16vw;
-  max-height: 12vw;
   object-fit: cover;
+  display: block;
 }
 /*Navigation bar padding: 50px 10vw;*/
 .navbar{
@@ -801,10 +782,10 @@ a, a:hover, a:visited, a:active {
 
 
 .card h2{
-  color: #2C6E49;
+  color: black;
 }
 .card p{
-  color: #2C6E49;
+  color: black;
 }
 .card {
   align-items: center;
@@ -842,7 +823,7 @@ a, a:hover, a:visited, a:active {
   text-transform: uppercase;
   font-weight: 700;
   font-size: 1vw;
-  color: #2C6E49;
+  color: black;
 }
 
 /* Roll-link */
@@ -948,7 +929,7 @@ a, a:hover, a:visited, a:active {
 }
 
   overflow: hidden;
-  color: #2C6E49;
+  color: black;
   font-size: 1vw;
 }
 
@@ -958,7 +939,7 @@ a, a:hover, a:visited, a:active {
   justify-content: space-around;
   height: 10vh;
   transition: transform 0.5s ease;
-  color: #2C6E49;
+  color: black;
   font-size: 1vw;
 }
 
@@ -970,7 +951,7 @@ a, a:hover, a:visited, a:active {
   left: 0;
   width: 0;
   height: .1em;
-  background-color: #2C6E49;
+  background-color: black;
   transition: width 0.5s ease-out;
 }
 
@@ -1051,15 +1032,19 @@ a, a:hover, a:visited, a:active {
   #sectionPin, .pin-wrap { position: relative !important; transform: none !important; width: 100% !important; height: auto !important; white-space: normal !important; }
 
   /* make portfolio list vertical and full-width */
-  .portfolioList { display: block !important; padding: 1vh 3vw !important; grid-template-columns: none !important; }
-  .portboxes { width: 100% !important; height: auto !important; min-height: 60vh !important; padding: 4vh 4vw !important; }
+  .portfolioList { display: block !important; padding: 0 !important; margin: 0 !important; grid-template-columns: none !important; overflow: hidden !important; }
+  .portboxes { width: 100vw !important; height: auto !important; min-height: 60vh !important; padding: 4vh 0 !important; box-sizing: border-box !important; overflow: hidden !important; }
+  .collabbox, .gamejams { width: 100vw !important; padding: 4vh 0 !important; box-sizing: border-box !important; overflow: hidden !important; }
 
   /* stacked lists: one item per vertical flow */
-  .collabsList, .portList { display: block !important; }
-  .collabItem, .portItem { width: 100% !important; height: auto !important; padding: 4vh 0 !important; margin: 0 0 2vh 0 !important; }
+  .collabsList, .portList { display: block !important; width: 100% !important; padding: 0 !important; margin: 0 !important; list-style: none !important; }
+  .collabItem, .portItem { width: 100vw !important; height: auto !important; padding: 4vh 5vw !important; margin: 0 !important; box-sizing: border-box !important; align-items: center !important; text-align: center !important; }
 
-  /* images scale to available width */
-  .collabimg, .portImg { max-width: 90% !important; width: auto !important; height: auto !important; }
+  /* images fill full width */
+  .collabimg, .portImg { width: 100% !important; max-width: 100% !important; height: auto !important; }
+
+  /* center game jam text and match collab font size */
+  .gameJamDescription { text-align: center !important; width: 100% !important; font-size: 4vw !important; display: block !important; margin: 0.5vw 0 0 0 !important; color: black !important; }
 
   /* headers and names scale down for small screens */
   .portHeader { font-size: 6vw !important; }
@@ -1070,29 +1055,9 @@ a, a:hover, a:visited, a:active {
 
   /* Hide background video on mobile and use vertical background image */
   #myVideo { display: none !important; }
-  .mainContainer { background-image: url("images/vertical.jpg") !important; background-size: cover !important; background-position: right center !important; background-attachment: fixed !important; }
+  .mainContainer { background: none !important; }
+  body { background-image: url("images/vertical.jpg") !important; background-size: cover !important; background-position: center center !important; background-attachment: fixed !important; background-repeat: no-repeat !important; }
 
-  /* Make game-jam tiles fill width and center content like collab items */
-  .portList { display: block !important; }
-  .portItem {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
-    margin: 0 0 2vh 0 !important;
-    padding: 4vh 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-sizing: border-box !important;
-  }
-  .portImg {
-    width: 90% !important;
-    max-width: 420px !important;
-    height: auto !important;
-    object-fit: contain !important;
-    margin-bottom: 1.5vh !important;
-  }
 
   /* Center contact card content and make images responsive */
   .contactsec .card {
@@ -1117,25 +1082,18 @@ a, a:hover, a:visited, a:active {
 }
 
 @media (max-width: 480px) {
-  .portboxes { padding: 3vh 5vw !important; min-height: 50vh !important; }
-  .collabItem, .portItem { padding: 6vh 0 !important; }
+  .portboxes { width: 100vw !important; padding: 4vh 0 !important; min-height: 50vh !important; overflow: hidden !important; }
+  .collabbox, .gamejams { width: 100vw !important; padding: 4vh 0 !important; overflow: hidden !important; }
+  .collabsList, .portList { padding: 0 !important; margin: 0 !important; list-style: none !important; }
+  .collabItem, .portItem { width: 100vw !important; padding: 6vh 5vw !important; margin: 0 !important; align-items: center !important; text-align: center !important; }
+  .collabimg, .portImg { width: 100% !important; max-width: 100% !important; }
+  .gameJamDescription { text-align: center !important; width: 100% !important; font-size: 5vw !important; display: block !important; margin: 0.5vw 0 0 0 !important; color: black !important; }
   .portHeader { font-size: 7.5vw !important; }
   .portname { font-size: 9vh !important; }
   .divider { width: 92% !important; height: 2px !important; margin: 1.5vh auto !important; }
-  /* hide video on small screens and use vertical background image */
   #myVideo { display: none !important; }
-  .mainContainer { background-image: url("images/vertical.jpg") !important; background-size: cover !important; background-position: right center !important; background-attachment: fixed !important; }
-  /* ensure game jam images and tiles fill mobile width and center */
-  .portItem {
-    width: 100% !important;
-    padding: 6vh 0 !important;
-    margin: 0 0 2vh 0 !important;
-  }
-  .portImg {
-    width: 92% !important;
-    max-width: none !important;
-    height: auto !important;
-  }
+  .mainContainer { background: none !important; }
+  body { background-image: url("images/vertical.jpg") !important; background-size: cover !important; background-position: center center !important; background-attachment: fixed !important; background-repeat: no-repeat !important; }
   /* contact card tweaks for very small screens */
   .contactsec .card {
     padding: 3vh 6vw !important;
