@@ -1070,7 +1070,7 @@ a, a:hover, a:visited, a:active {
 
   /* Hide background video on mobile and use vertical background image */
   #myVideo { display: none !important; }
-  .mainContainer { background-image: url("images/vertical.jpg") !important; background-size: cover !important; background-position: right center !important; }
+  .mainContainer { background-image: url("images/vertical.jpg") !important; background-size: cover !important; background-position: right center !important; background-attachment: fixed !important; }
 
   /* Make game-jam tiles fill width and center content like collab items */
   .portList { display: block !important; }
@@ -1124,7 +1124,7 @@ a, a:hover, a:visited, a:active {
   .divider { width: 92% !important; height: 2px !important; margin: 1.5vh auto !important; }
   /* hide video on small screens and use vertical background image */
   #myVideo { display: none !important; }
-  .mainContainer { background-image: url("images/vertical.jpg") !important; background-size: cover !important; background-position: right center !important; }
+  .mainContainer { background-image: url("images/vertical.jpg") !important; background-size: cover !important; background-position: right center !important; background-attachment: fixed !important; }
   /* ensure game jam images and tiles fill mobile width and center */
   .portItem {
     width: 100% !important;
