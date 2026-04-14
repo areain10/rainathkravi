@@ -1,0 +1,298 @@
+/* =============================================
+   PROJECT PAGE — William Fredriksson-inspired layout
+   ============================================= */
+
+body.project-page {
+  background-color: #111;
+  color: #e8e8e8;
+  font-family: termina, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+.proj-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 3rem 6rem 1.5rem 6rem;
+}
+
+.proj-title {
+  font-family: "BlenderProHeavy", sans-serif;
+  font-size: 4rem;
+  color: #c87d5e;
+  margin: 0 0 0.25rem 0;
+  line-height: 1;
+}
+
+.proj-subtitle {
+  font-family: "BlenderProBold", sans-serif;
+  font-size: 1.4rem;
+  color: #e8e8e8;
+  margin: 0;
+  font-weight: 700;
+}
+
+.proj-nav {
+  display: flex;
+  gap: 2.5rem;
+  padding-bottom: 0.4rem;
+}
+
+.proj-nav-link {
+  font-family: "BlenderProBook", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  color: #e8e8e8;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.proj-nav-link:hover {
+  color: #c87d5e;
+}
+
+/* HORIZONTAL RULES */
+.proj-rule {
+  border: none;
+  border-top: 1px solid #333;
+  margin: 0 6rem;
+}
+
+/* HERO IMAGE */
+.proj-hero {
+  margin: 0 6rem 0 6rem;
+  max-height: 75vh;
+  overflow: hidden;
+}
+
+.proj-hero img,
+.proj-hero video,
+.proj-hero iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.proj-hero iframe {
+  height: 60vh;
+}
+
+/* SECTIONS */
+.proj-section {
+  padding: 4rem 6rem;
+}
+
+.proj-section-inner {
+  padding: 0;
+}
+
+/* CENTERED SECTION HEADERS */
+.proj-section-header {
+  font-family: "BlenderProHeavy", sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.2em;
+  text-align: center;
+  color: #e8e8e8;
+  margin: 0 0 3rem 0;
+  text-transform: uppercase;
+}
+
+/* SUBSECTION HEADERS (left-aligned, smaller) */
+.proj-subsection-header {
+  font-family: "BlenderProBold", sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  color: #e8e8e8;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+}
+
+/* BODY TEXT */
+.proj-body {
+  font-family: "BlenderProBook", sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #ccc;
+  margin: 0 0 1.2rem 0;
+}
+
+/* ACCENT LINKS (inline colored keywords) */
+.proj-accent {
+  color: #c87d5e;
+  text-decoration: none;
+}
+
+.proj-accent:hover {
+  text-decoration: underline;
+}
+
+/* TWO-COLUMN: intro + project details side by side */
+.proj-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.proj-col-text {
+  /* intentionally empty — just a block wrapper */
+}
+
+/* PROJECT DETAILS LIST */
+.proj-details-list {
+  list-style: disc;
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.proj-details-list li {
+  font-family: "BlenderProBook", sans-serif;
+  font-size: 1rem;
+  line-height: 2;
+  color: #ccc;
+}
+
+/* MEDIA + TEXT: image left ~55%, text right ~45% */
+.proj-media-text {
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  gap: 4rem;
+  align-items: start;
+  margin-bottom: 4rem;
+}
+
+.proj-media-text--flipped {
+  grid-template-columns: 45fr 55fr;
+}
+
+.proj-media-text--flipped .proj-media-left {
+  order: 2;
+}
+
+.proj-media-text--flipped .proj-media-right {
+  order: 1;
+}
+
+.proj-media-left img,
+.proj-media-left video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+.proj-media-right {
+  padding-top: 0.5rem;
+}
+
+/* 3-COLUMN IMAGE GRID */
+.proj-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.proj-grid-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+  object-fit: cover;
+  aspect-ratio: 16/9;
+}
+
+/* 2-COLUMN IMAGE GRID */
+.proj-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.proj-grid-2 .proj-grid-item img {
+  aspect-ratio: 16/10;
+}
+
+/* FOOTER */
+.proj-footer {
+  padding: 3rem 6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.proj-back-link {
+  font-family: "BlenderProBold", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  color: #c87d5e;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.proj-back-link:hover {
+  opacity: 0.7;
+}
+
+.proj-footer-name {
+  font-family: "BlenderProBook", sans-serif;
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+
+/* DARK SECTION (for callout blocks like "LEVEL FLOWCHART") */
+.proj-dark-section {
+  background-color: #1a1a1a;
+  margin: 0 -6rem;
+  padding: 4rem 6rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .proj-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+
+  .proj-title { font-size: 2.5rem; }
+
+  .proj-rule { margin: 0 2rem; }
+
+  .proj-hero { margin: 0 2rem; }
+
+  .proj-section { padding: 2.5rem 2rem; }
+
+  .proj-two-col,
+  .proj-media-text,
+  .proj-media-text--flipped {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .proj-media-text--flipped .proj-media-left,
+  .proj-media-text--flipped .proj-media-right {
+    order: unset;
+  }
+
+  .proj-grid-3 { grid-template-columns: 1fr; }
+
+  .proj-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 2rem;
+  }
+
+  .proj-dark-section {
+    margin: 0 -2rem;
+    padding: 2.5rem 2rem;
+  }
+}
