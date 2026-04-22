@@ -6,271 +6,863 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rain's Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
 
-    <link rel="stylesheet" href="styles.css">
+      /* ─── Color scheme: dark bg matching lucidRumination's inverted sibling ─── */
+      :root {
+        --bg:       #ff0000;
+        --surface:  #1a1a1a;
+        --border:   #2a2a2a;
+        --accent:   #22bd3c;
+        --text:     #c8c8c8;
+        --text-dim: #666666;
+        --heading:  #f0f0f0;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background: #000;
+        color: var(--text);
+        font-family: 'Courier New', monospace;
+      }
+
+      /* ─── FIXED VIDEO BACKGROUND ─── */
+      #bg-video-wrap {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background: #000;
+        pointer-events: none;
+      }
+
+      #bg-video-wrap video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.9;
+      }
+
+      /* ─── NAV ─── */
+      nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 60px;
+        background: rgba(15,15,15,0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-name {
+        font-size: 11px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--heading);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .nav-links {
+        list-style: none;
+        margin: 0; padding: 0;
+        display: flex; gap: 32px;
+      }
+
+      .nav-links a {
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover { color: var(--accent); }
+
+      /* ─── FIXED VIEWPORT ─── */
+      #lr-viewport {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        z-index: 1;
+        background: transparent;
+      }
+
+      /* ─── HORIZONTAL STRIP ─── */
+      #lr-strip {
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
+        width: max-content;
+        will-change: transform;
+      }
+
+      /* ─── PANEL BASE ─── */
+      .panel {
+        width: 100vw;
+        height: 100vh;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 80px 60px 40px;
+        box-sizing: border-box;
+        background: transparent;
+      }
+
+      .panel-tall {
+        justify-content: flex-start;
+        padding-top: 100px;
+      }
+
+      .panel-wide  { width: 150vw; }
+      .panel-xwide { width: 170vw; }
+
+      /* Vertical divider between panels */
+      .panel + .panel::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 10%;
+        height: 80%; width: 2px;
+        background: var(--border);
+        border-radius: 999px;
+      }
+
+      /* Ghost panel number */
+      .panel-num {
+        position: absolute;
+        bottom: 24px; left: 60px;
+        font-size: clamp(70px, 10vw, 130px);
+        font-weight: 900;
+        color: rgba(255,255,255,0.0);
+        letter-spacing: 6px;
+        line-height: 1;
+        pointer-events: none;
+        user-select: none;
+        font-family: 'Courier New', monospace;
+      }
+
+      /* ─── HERO PANEL ─── */
+      .panel-hero {
+        padding: 0;
+        justify-content: flex-end;
+        width: 100vw;
+      }
+
+      .hero-overlay {
+        position: absolute; inset: 0;
+        
+      }
+
+      .hero-watermark {
+        position: absolute; top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: clamp(140px, 24vw, 360px);
+        font-weight: 900; letter-spacing: 8px;
+        color: rgba(255,255,255,0.03);
+        text-transform: uppercase; white-space: nowrap;
+        pointer-events: none; user-select: none; line-height: 1;
+        font-family: 'Courier New', monospace;
+      }
+
+      .hero-content {
+        position: relative; z-index: 2;
+        padding: 0 60px 70px;
+      }
+
+      .hero-tag {
+        font-size: 12px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--text);
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .hero-title {
+        font-size: clamp(64px, 10vw, 140px);
+        font-weight: 900;
+        line-height: 0.92;
+        letter-spacing: -2px;
+        color: var(--heading);
+        text-transform: uppercase;
+        margin: 0 0 32px;
+        font-family: 'Courier New', monospace;
+      }
+
+      .hero-subtitle {
+        font-size: 13px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--text);
+        margin-bottom: 40px;
+      }
+
+      .hero-nav {
+        display: flex; gap: 32px;
+        flex-wrap: wrap;
+      }
+
+      .hero-nav a {
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        text-decoration: none;
+        padding-bottom: 4px;
+        border-bottom: 1px solid var(--border);
+        transition: color 0.2s, border-color 0.2s;
+      }
+
+      .hero-nav a:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+
+      /* Non-hero panels get a subtle dark tint so text stays readable */
+      .panel {
+        background: rgba(10,10,10,0.0);
+      }
+
+      /* ─── SECTION HEADERS ─── */
+      .portHeader {
+        font-size: clamp(20px, 2.5vw, 30px);
+        font-weight: 900;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--heading);
+        margin: 0 0 28px;
+        font-family: 'Courier New', monospace;
+      }
+
+      /* ─── PROJECT GRID ─── */
+      .projectGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        flex: 1;
+      }
+
+      .projectCard {
+        position: relative;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: border-color 0.3s;
+        text-decoration: none;
+      }
+
+      .projectCard:hover {
+        border-color: var(--accent);
+      }
+
+      .projectCard:hover .card-overlay {
+        opacity: 1;
+      }
+
+      .card-img {
+        width: 100%;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        display: block;
+        filter: grayscale(30%);
+        transition: filter 0.3s;
+      }
+
+      .projectCard:hover .card-img {
+        filter: grayscale(0%);
+      }
+
+      .card-img-placeholder {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-dim);
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      .card-body {
+        padding: 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .card-title {
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--heading);
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .card-type {
+        font-size: 9px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .card-overlay {
+        position: absolute; inset: 0;
+        background: rgba(250,176,17,0.05);
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+      }
+
+      /* ─── GAME JAM SECTION ─── */
+      .jamGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        max-width: 50%;
+      }
+
+      .jamCard {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        text-decoration: none;
+        transition: border-color 0.3s;
+      }
+
+      .jamCard:hover {
+        border-color: var(--accent);
+      }
+
+      .jamImg {
+        width: 80px;
+        height: 60px;
+        object-fit: cover;
+        flex-shrink: 0;
+        filter: grayscale(40%);
+        transition: filter 0.3s;
+      }
+
+      .jamCard:hover .jamImg {
+        filter: grayscale(0%);
+      }
+
+      .jamImg-placeholder {
+        width: 80px; height: 60px;
+        background: var(--border);
+        flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        color: var(--text-dim); font-size: 8px; letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .jamTitle {
+        font-size: 10px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--heading);
+        font-weight: 700;
+      }
+
+      .jamSub {
+        font-size: 9px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-top: 4px;
+      }
+
+      /* ─── CONTACT CARD ─── */
+      .contact-card {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        max-width: 400px;
+      }
+
+      .contact-photo {
+        width: 100%;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+        display: block;
+        filter: grayscale(20%);
+        border: 1px solid var(--border);
+      }
+
+      .contact-photo-placeholder {
+        width: 100%;
+        aspect-ratio: 4/3;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        display: flex; align-items: center; justify-content: center;
+        color: var(--text-dim); font-size: 9px; letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      .contact-info {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-top: none;
+        padding: 24px;
+      }
+
+      .contact-name {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--heading);
+        margin: 0 0 4px;
+      }
+
+      .contact-role {
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 20px;
+      }
+
+      .contact-row {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 16px;
+        border-top: 1px solid var(--border);
+        padding-top: 16px;
+      }
+
+      .contact-row a, .contact-row span {
+        font-size: 10px;
+        letter-spacing: 1px;
+        color: var(--text-dim);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .contact-row a:hover { color: var(--accent); }
+
+      /* ─── SPEC GRID ─── */
+      .specGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        max-width: 600px;
+      }
+
+      .specCard {
+        background: var(--surface);
+        padding: 20px 24px;
+      }
+
+      .meta-label {
+        font-size: 8px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 8px;
+      }
+
+      .meta-value {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--heading);
+        text-transform: uppercase;
+      }
+
+      /* ─── PROGRESS BAR ─── */
+      #progress-bar {
+        position: fixed;
+        top: 0; left: 0;
+        height: 2px;
+        width: 0%;
+        background: var(--accent);
+        z-index: 9999;
+        transition: width 0.05s linear;
+      }
+
+      /* ─── SCROLL HINT ─── */
+      #scroll-hint {
+        position: fixed;
+        bottom: 28px; right: 40px;
+        display: flex; align-items: center; gap: 12px;
+        z-index: 9998;
+        pointer-events: none;
+        transition: opacity 0.4s;
+      }
+
+      #scroll-hint span {
+        font-size: 9px; letter-spacing: 3px;
+        color: var(--text-dim);
+        text-transform: uppercase; font-weight: 700;
+        font-family: 'Courier New', monospace;
+      }
+
+      .hint-arrow {
+        width: 36px; height: 1px;
+        background: var(--accent);
+        position: relative;
+        animation: hintPulse 1.8s ease-in-out infinite;
+      }
+
+      .hint-arrow::after {
+        content: '';
+        position: absolute; right: 0; top: -3px;
+        width: 6px; height: 6px;
+        border-top: 1px solid var(--accent);
+        border-right: 1px solid var(--accent);
+        transform: rotate(45deg);
+      }
+
+      @keyframes hintPulse {
+        0%, 100% { opacity: 0.4; transform: translateX(0); }
+        50%       { opacity: 1;   transform: translateX(6px); }
+      }
+
+      /* ─── CUSTOM CURSOR ─── */
+      .cursor {
+        position: fixed;
+        width: 8px; height: 8px;
+        background: var(--accent);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s;
+        mix-blend-mode: difference;
+      }
+
+      /* ─── PANEL-FOOTER ─── */
+      .panel-footer-row {
+        margin-top: 36px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer-label {
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+      }
+
+      /* ─── MOBILE ─── */
+      @media (max-width: 900px) {
+        nav { padding: 16px 24px; }
+        .nav-links { gap: 16px; }
+
+        body { overflow-x: hidden; overflow-y: auto; }
+        #lr-viewport { position: static; overflow: visible; }
+        #lr-strip {
+          display: block;
+          width: 100%;
+          height: auto;
+          transform: none !important;
+        }
+
+        .panel,
+        .panel-wide,
+        .panel-xwide {
+          width: 100% !important;
+          height: auto !important;
+          min-height: unset;
+          flex-shrink: unset;
+          padding: 80px 24px 48px;
+          display: block;
+          border-bottom: 1px solid var(--border);
+        }
+
+        .panel + .panel::before { display: none; }
+
+        .panel-hero {
+          height: 100vh !important;
+          padding: 0 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          justify-content: flex-end !important;
+        }
+
+        .panel-hero .hero-content { padding: 0 24px 50px; }
+
+        .panel-num,
+        #progress-bar,
+        #scroll-hint { display: none !important; }
+
+        .projectGrid { grid-template-columns: 1fr; }
+        .jamGrid { grid-template-columns: 1fr; }
+        .specGrid { grid-template-columns: 1fr 1fr; }
+
+        .panel-footer-row {
+          flex-direction: column;
+          gap: 16px;
+          text-align: center;
+        }
+
+        #lr-spacer { display: none; }
+      }
+
+    </style>
   </head>
   <body>
-	<!--<
-	  <div class="intro">
-		  <div class="introtext">
-                        <h1 class="name-header">
-				<span class="name">I'm</span><span class="name">&nbsp;Pornthep Athkravisoonthorn</span><br><span class="name">But please call me</span>
-                        </h1>
-		</div>
-		<h1><span class="name rain px-glitchtext px-glitchtext-anim">RAIN</span></h1>
-		</div> 
-		<div class="navbar">
-			<h2>RAIN</h2>
-			<div class="linkholder">
-				<h2 class="link">Portfolio</h>
-				<h2 class="link">Services</h>
-				<h2 class="link">Contact</h>
-			</div>
-		</div>
-		<div class="main ">
-			<h2 id="iam">I am a web</h2>
-			<h1 id="developer" class="dd">DEVELOPER</h1>
-			<h1 class="dd"><hr>DESIGNER</h1>
-			<div class="hire">
-				<button type="button" class="btn btn-light"><h3>You're looking to hire</h3></button>
-				<button type="button" class="btn btn-outline-light"><h3>You're looking to commission</h3></button>
-			</div>
-			<div class="portrait">
-				<img class="suitpic" src="images/suit1.PNG">
-				<img class="suitpic clipPath" src="images/suit1.PNG">
-			</div>
-		</div>
-	div class="port">
-		<div class="full hide-scroll">
-			<ul class="hs">
-				<li class="item">test</li>
-				<li class="item">test</li>
-				<li class="item">test</li>
-				<li class="item">test</li>
-				<li class="item">test</li>
-				<li class="item">test</li>
-			  </ul>
-		</div>
-	</div>
-	<div class="app">
-		<h1>Some headline</h1>
-	  
-		<div class="full hide-scroll">
-	  
-		  <ul class="hs">
-			<li class="item">test</li>
-			<li class="item">test</li>
-			<li class="item">test</li>
-			<li class="item">test</li>
-			<li class="item">test</li>
-			<li class="item">test</li>
-		  </ul>
-	  
-		</div>
-	  
-		<div class="container">
-		  <div class="item">
-			<h3>Block for context</h3>
-		  </div>
-		</div>
-	  </div>
-	-->
-	<div class="cursor"></div>
-	<div class="mainContainer">
-			<video autoplay muted loop id="myVideo"><source src="images/testback.mp4" type="video/mp4">
-		</video>
-		<section id="sectionPin">
-			<div class="pin-wrap">	
-				<ul class="portfolioList">
-					<div class="portboxes introsec">
-						<h1 class="portname">RAIN</h1>
-						<h3 class="portfullname">Pornthep Athkravisoonthorn</h3>
-						<h1 class="portsubname">Game Designer/Producer</h1>
-						<li class="nav">
-							<a href="#projectSec"><h2 class="link">Personal Projects</h></a>
-							<a href="#collabSec"><h2 class="link">Collaborative Projects</h></a>
-							<a href="#gamejamSec"><h2 class="link">Game Jams</h></a>
-							<a href="https://drive.google.com/file/d/1_CIBUZWDlETuJnPdX2_xAOFBxt5QVq7J/view?usp=sharing" target="_blank"><h2 class="link">Resume</h></a>
-							<a href="#servCont"><h2 class="link">Contact</h></a>
-								
-						</li>
-					</div>
-					<div class="divider"></div>
-					<!--
-					<div class="portboxes projects" id="projectSec">
-						<h1 class="portHeader">PERSONAL PROJECTS</h1>
-						<div class="ppcontainer">
-							<div class="largepp">
-								<div class="workinprogress"></div>
-								<h1 class = "pptext">WORK IN PROGRESS...</h1>
-								
-							</div>
-							
-							<div class="smallerppcontainer">
-								<div class="smallerpp">
-									<div class="workinprogress"></div>
-									<h1 class = "pptext">WORK IN PROGRESS</h1>
-								</div>
-								<div class="smallerpp">
-									<div class="workinprogress"></div>
-									<h1 class = "pptext">WORK IN PROGRESS</h1>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-					<div class="divider"></div>-->
-					<div class="portboxes collabbox"id="collabSec">
-						<h1 class="portHeader">STUDENT PROJECTS</h1>
-						<ul class="collabsList">
-							<li class="collabItem">
-								<a href="lucidRumination.html"><img class="collabimg" src="images/lrimg.png"></a>
-								<h3 class="collabdesc">LUCID RUMINATION</h3>
-							</li>
-							<li class="collabItem">
-								<a href="https://docs.google.com/document/d/1eFKXJg5oTOycfV9X6gJVCRdBffq2r_e8fBlHMSBs8FU/edit?usp=sharing" target="_blank"><img class="collabimg" src="images/tomo.png"></a>
-								<h3 class="collabdesc">TOMO NO TAIKO</h3>
-							</li>
-							<li class="collabItem">
-								<a href="https://docs.google.com/document/d/1S34qSKdrKJoSHH3AMEOOrhSGG0ra-vVYUvmhQ7Ok1zM/edit?usp=sharing" target="_blank"><img class="collabimg" src="images/milo.png"></a>
-								<h3 class="collabdesc">DETECTIVE MILO</h3>
-							</li>
-							
-						</ul>
-						
-					</div>
-					<div class="divider"></div>
-					<div class="portboxes gamejams"id="gamejamSec"><h1 class="portHeader">GAME JAMS</h1>
-						
-						<ul class="portList">
-							<li class="portItem">
-								<a href="https://docs.google.com/document/d/1dp0L1eryOeUqrRKSXNjg2t1BKAdLXz5BRkMJ2hrlBwE/edit?usp=sharing"><img class="portImg"src="images/testimg.png" ></a>
-								<h3 class="gameJamDescription">GOLDEN FISH</h3>
-							</li>
-							<li class="portItem">
-								<a href="https://docs.google.com/document/d/1u04oHtX5YjKhuTKv2NKhHhvyUO91vD2MN9qmIcdDc4o/edit?usp=sharing"><img class="portImg"src="images/onasilverplatter.png" ></a>
-								<h3 class="gameJamDescription">ON A SILVER PLATTER</h3>
-							</li>
-							<li class="portItem">
-								<a href="https://docs.google.com/document/d/1uKX_4KyUPviM_sraGf7tbVbxKoaT2dXHwVY6IM6qiU8/edit?usp=sharing"><img class="portImg"src="images/aphrodite.png" ></a>
-								<h3 class="gameJamDescription">APHRODITE'S MESSAGE</h3>
-							</li>
-							<li class="portItem">
-								<a href="https://docs.google.com/document/d/1u04oHtX5YjKhuTKv2NKhHhvyUO91vD2MN9qmIcdDc4o/edit?usp=sharing"><img class="portImg"src="images/onasilverplatter.png" ></a>
-								<h3 class="gameJamDescription">CAT ME IF YOU CAN!</h3>
-							</li>
-							<!--
-							<li class="portItem">
-								<img class="portImg"src="images/testimg.png" >
-								<h3 class="gameJamDescription">GoldenFish</h3>
-							</li>*/-->
-				
-						</ul>
-					</div>
-					<!--<div class="divider"></div>
-					<div class="portboxes servcont" id="servCont">
-						<h1 class="portHeader">SERVICES</h1>
+    
+    <!-- Fixed video background -->
+    <div id="bg-video-wrap">
+      <video autoplay muted loop playsinline>
+        <source src="images/arabesque.mp4" type="video/mp4">
+      </video>
+    </div>
 
-					</div>-->
-					<div class="divider"></div>
-					<div class="portboxes contactsec "id="servCont">
-						<h1 class="portHeader">CONTACT</h1>
-						<div class="card">
-							<div class="img-container">
-							  <img src="images/redhair.jpg" />
-							  <div class="img-overlay"></div>
-							</div>
-							<h2>Pornthep (Rain) Athkravisoonthorn</h2>
-							<p class="role">Game Designer</p>
-							<div class="roll-link">
-							  <div>
-								<p>rainathkravi@gmail.com</p>
-								<a href="#">areain10.github.io/rainathkravi</a>
-							  </div>
-							</div>
-							<div class="roll-link">
-							  <div>
-								<p>+1 949 775 9690</p>
-								<a href="#">+1 949 775 9690</a>
-							  </div>
-							</div>
-						  </div>
-					</div>
-					
-					
-				</ul>
-			</div>
-		</section>
-		
-	</div>
-		
-	
+    <!-- Progress bar -->
+    <div id="progress-bar"></div>
 
-	<script src="main.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <!-- Scroll hint -->
+    <div id="scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="hint-arrow"></div>
+    </div>
 
+    <!-- Custom cursor -->
+    <div class="cursor" id="cursor"></div>
 
-	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollToPlugin.min.js"></script>
-	<script>
-		window.addEventListener('DOMContentLoaded',()=>{
-		gsap.registerPlugin(ScrollTrigger);
+    <!-- NAV -->
+    <nav>
+      <a href="index.html" class="nav-name">Rain Athkravisoonthorn</a>
+      <ul class="nav-links">
+        <li><a href="#" onclick="scrollToPanel(0)">Home</a></li>
+        <li><a href="#" onclick="scrollToPanel(1)">Student Projects</a></li>
+        <li><a href="#" onclick="scrollToPanel(2)">Game Jams</a></li>
+        <li><a href="https://drive.google.com/file/d/1_CIBUZWDlETuJnPdX2_xAOFBxt5QVq7J/view?usp=sharing" target="_blank">Resume</a></li>
+        <li><a href="#" onclick="scrollToPanel(3)">Contact</a></li>
+      </ul>
+    </nav>
 
-		const pageContainer = document.querySelector(".container");
-		});
-		/* SMOOTH SCROLL */
-		const scroller = new LocomotiveScroll({
-		  el: pageContainer,
-		  smooth: true
-		});
-		
-		scroller.on("scroll", ScrollTrigger.update);
-		
-		ScrollTrigger.scrollerProxy(pageContainer, {
-		  scrollTop(value) {
-			return arguments.length
-			  ? scroller.scrollTo(value, 0, 0)
-			  : scroller.scroll.instance.scroll.y;
-		  },
-		  getBoundingClientRect() {
-			return {
-			  left: 0,
-			  top: 0,
-			  width: window.innerWidth,
-			  height: window.innerHeight
-			};
-		  },
-		  pinType: pageContainer.style.transform ? "transform" : "fixed"
-		});
-		
-		////////////////////////////////////
-		////////////////////////////////////
-		window.addEventListener("load", function () {
-		  let pinBoxes = document.querySelectorAll(".pin-wrap > *");
-		  let pinWrap = document.querySelector(".pin-wrap");
-		  let pinWrapWidth = pinWrap.offsetWidth;
-		  let horizontalScrollLength = pinWrapWidth - window.innerWidth;
-		
-		  // Pinning and horizontal scrolling
-		
-		  gsap.to(".pin-wrap", {
-			scrollTrigger: {
-			  scroller: pageContainer, //locomotive-scroll
-			  scrub: true,
-			  trigger: "#sectionPin",
-			  pin: true,
-			  // anticipatePin: 1,
-			  start: "top top",
-			  end: pinWrapWidth
-			},
-			x: -horizontalScrollLength,
-			ease: "none"
-		  });
-		
-		  ScrollTrigger.addEventListener("refresh", () => scroller.update()); //locomotive-scroll
-		
-		  ScrollTrigger.refresh();
-		});
-		</script>
+    <!-- Spacer for scroll engine -->
+    <div id="lr-spacer"></div>
+    
+    <!-- Fixed viewport -->
+    <div id="lr-viewport">
+      
+      <div id="lr-strip">
+
+        <!-- ══════════════════════════════
+             PANEL 0 — HERO
+        ══════════════════════════════ -->
+        <div class="panel panel-hero">
+          <!--<div class="hero-watermark">RAIN</div>-->
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <div class="hero-tag">Game Designer &nbsp;·&nbsp; Producer &nbsp;·&nbsp; UC Irvine</div>
+            <h1 class="hero-title">Rain<br>Athkravi&shy;soonthorn</h1>
+            <p class="hero-subtitle">Pornthep Athkravisoonthorn</p>
+            <nav class="hero-nav">
+              <a href="#" onclick="scrollToPanel(1)">Student Projects</a>
+              <a href="#" onclick="scrollToPanel(2)">Game Jams</a>
+              <a href="https://drive.google.com/file/d/1_CIBUZWDlETuJnPdX2_xAOFBxt5QVq7J/view?usp=sharing" target="_blank">Resume</a>
+              <a href="#" onclick="scrollToPanel(3)">Contact</a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             PANEL 1 — STUDENT PROJECTS
+        ══════════════════════════════ -->
+        <div class="panel panel-wide panel-tall" id="collabSec">
+          <span class="panel-num">01</span>
+          <h2 class="portHeader">Student Projects</h2>
+          <div class="projectGrid">
+            <a class="projectCard" href="lucidRumination.html">
+              <img class="card-img" src="images/lrimg.png" alt="Lucid Rumination" onerror="this.style.display='none'">
+              <div class="card-overlay"></div>
+              <div class="card-body">
+                <div>
+                  <div class="card-title">Lucid Rumination</div>
+                  <div class="card-type">FPS Roguelite · Horror</div>
+                </div>
+              </div>
+            </a>
+            <a class="projectCard" href="https://docs.google.com/document/d/1eFKXJg5oTOycfV9X6gJVCRdBffq2r_e8fBlHMSBs8FU/edit?usp=sharing" target="_blank">
+              <img class="card-img" src="images/tomo.png" alt="Tomo No Taiko" onerror="this.style.display='none'">
+              <div class="card-overlay"></div>
+              <div class="card-body">
+                <div>
+                  <div class="card-title">Tomo No Taiko</div>
+                  <div class="card-type">Student Project</div>
+                </div>
+              </div>
+            </a>
+            <a class="projectCard" href="detectivemilo.html">
+              <img class="card-img" src="images/milo.png" alt="Detective Milo" onerror="this.style.display='none'">
+              <div class="card-overlay"></div>
+              <div class="card-body">
+                <div>
+                  <div class="card-title">Detective Milo</div>
+                  <div class="card-type">Student Project</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             PANEL 2 — GAME JAMS
+        ══════════════════════════════ -->
+        <div class="panel panel-tall" id="gamejamSec">
+          <span class="panel-num">02</span>
+          <h2 class="portHeader">Game Jams</h2>
+          <div class="jamGrid">
+            <a class="jamCard" href="https://docs.google.com/document/d/1dp0L1eryOeUqrRKSXNjg2t1BKAdLXz5BRkMJ2hrlBwE/edit?usp=sharing" target="_blank">
+              <img class="jamImg" src="images/testimg.png" alt="Golden Fish" onerror="this.style.display='none'">
+              <div>
+                <div class="jamTitle">Golden Fish</div>
+                <div class="jamSub">Game Jam</div>
+              </div>
+            </a>
+            <a class="jamCard" href="https://docs.google.com/document/d/1u04oHtX5YjKhuTKv2NKhHhvyUO91vD2MN9qmIcdDc4o/edit?usp=sharing" target="_blank">
+              <img class="jamImg" src="images/onasilverplatter.png" alt="On A Silver Platter" onerror="this.style.display='none'">
+              <div>
+                <div class="jamTitle">On A Silver Platter</div>
+                <div class="jamSub">Game Jam</div>
+              </div>
+            </a>
+            <a class="jamCard" href="https://docs.google.com/document/d/1uKX_4KyUPviM_sraGf7tbVbxKoaT2dXHwVY6IM6qiU8/edit?usp=sharing" target="_blank">
+              <img class="jamImg" src="images/aphrodite.png" alt="Aphrodite's Message" onerror="this.style.display='none'">
+              <div>
+                <div class="jamTitle">Aphrodite's Message</div>
+                <div class="jamSub">Game Jam</div>
+              </div>
+            </a>
+            <a class="jamCard" href="https://docs.google.com/document/d/1u04oHtX5YjKhuTKv2NKhHhvyUO91vD2MN9qmIcdDc4o/edit?usp=sharing" target="_blank">
+              <img class="jamImg" src="images/onasilverplatter.png" alt="Cat Me If You Can" onerror="this.style.display='none'">
+              <div>
+                <div class="jamTitle">Cat Me If You Can!</div>
+                <div class="jamSub">Game Jam</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             PANEL 3 — CONTACT
+        ══════════════════════════════ -->
+        <div class="panel" id="servCont">
+          <span class="panel-num">03</span>
+          <h2 class="portHeader">Contact</h2>
+          <div class="contact-card">
+            <img class="contact-photo" src="images/redhair.jpg" alt="Rain" onerror="this.style.display='none'">
+            <div class="contact-info">
+              <div class="contact-name">Pornthep (Rain) Athkravisoonthorn</div>
+              <div class="contact-role">Game Designer / Producer</div>
+              <div class="contact-row">
+                <a href="mailto:rainathkravi@gmail.com">rainathkravi@gmail.com</a>
+                <a href="https://areain10.github.io/rainathkravi" target="_blank">areain10.github.io/rainathkravi</a>
+                <span>+1 949 775 9690</span>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer-row" style="max-width:400px;">
+            <a href="https://drive.google.com/file/d/1_CIBUZWDlETuJnPdX2_xAOFBxt5QVq7J/view?usp=sharing" target="_blank" style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-decoration:none;">View Resume →</a>
+            <span class="footer-label">Rain Athkravisoonthorn</span>
+          </div>
+        </div>
+
+      </div><!-- /lr-strip -->
+    </div><!-- /lr-viewport -->
+
+    <script>
+      /* ─── Cursor ─── */
+      const cursor = document.getElementById('cursor');
+      document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      });
+
+      /* ─── Detect mobile ─── */
+      const isMobile = () => window.innerWidth <= 900;
+
+      /* ─── Horizontal scroll engine ─── */
+      const strip       = document.getElementById('lr-strip');
+      const spacer      = document.getElementById('lr-spacer');
+      const progressBar = document.getElementById('progress-bar');
+      const scrollHint  = document.getElementById('scroll-hint');
+
+      let scrollDist = 0;
+
+      function setup() {
+        if (isMobile()) {
+          spacer.style.height = '0px';
+          strip.style.transform = 'none';
+          return;
+        }
+        requestAnimationFrame(() => {
+          scrollDist = strip.scrollWidth - window.innerWidth;
+          spacer.style.height = (scrollDist + window.innerHeight) + 'px';
+          onScroll();
+        });
+      }
+
+      function onScroll() {
+        if (isMobile()) return;
+        const scrolled = window.scrollY;
+        const clamped  = Math.min(scrolled, scrollDist);
+        const progress = scrollDist > 0 ? clamped / scrollDist : 0;
+
+        strip.style.transform = `translateX(${-clamped}px)`;
+        progressBar.style.width = (progress * 100) + '%';
+        scrollHint.style.opacity = scrolled > 40 ? '0' : '1';
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(setup, 150);
+      });
+
+      window.addEventListener('load', setup);
+
+      /* ─── scrollToPanel helper (nav links) ─── */
+      function scrollToPanel(panelIndex) {
+        if (isMobile()) return;
+        const panels = strip.querySelectorAll('.panel');
+        if (!panels[panelIndex]) return;
+        // Calculate the left offset of that panel
+        let offset = 0;
+        for (let i = 0; i < panelIndex; i++) {
+          offset += panels[i].offsetWidth;
+        }
+        const ratio = scrollDist > 0 ? offset / scrollDist : 0;
+        window.scrollTo({ top: ratio * scrollDist, behavior: 'smooth' });
+        return false;
+      }
+    </script>
+
   </body>
 </html>
