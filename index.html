@@ -15,7 +15,7 @@
         --border:   #2a2a2a;
         --accent:   #22bd3c;
         --text:     #c8c8c8;
-        --text-dim: #666666;
+        --text-dim: #b4b4b4;
         --heading:  #f0f0f0;
       }
 
@@ -64,7 +64,7 @@
       }
 
       .nav-name {
-        font-size: 11px;
+        font-size: 1vw;
         letter-spacing: 4px;
         text-transform: uppercase;
         color: var(--heading);
@@ -79,10 +79,10 @@
       }
 
       .nav-links a {
-        font-size: 9px;
+        font-size: 0.9vw;
         letter-spacing: 3px;
         text-transform: uppercase;
-        color: var(--text-dim);
+        color: var(--text);
         text-decoration: none;
         transition: color 0.2s;
       }
@@ -98,13 +98,14 @@
         background: transparent;
       }
 
-      /* ─── HORIZONTAL STRIP ─── */
+      /* ─── HORIZONTAL STRIP — wide bg image anchored at left ─── */
       #lr-strip {
         display: flex;
         flex-direction: row;
         height: 100vh;
         width: max-content;
         will-change: transform;
+        background: url('images/firefly2.png') left center / auto 100% no-repeat;
       }
 
       /* ─── PANEL BASE ─── */
@@ -161,9 +162,11 @@
         width: 100vw;
       }
 
+      /* Gradient overlay on hero for text legibility */
       .hero-overlay {
         position: absolute; inset: 0;
-        
+        background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, transparent 100%);
+        z-index: 1;
       }
 
       .hero-watermark {
@@ -183,10 +186,10 @@
       }
 
       .hero-tag {
-        font-size: 12px;
+        font-size: 1vw;
         letter-spacing: 4px;
         text-transform: uppercase;
-        color: var(--text);
+        color: var(--accent);
         font-weight: 700;
         margin-bottom: 20px;
       }
@@ -216,7 +219,7 @@
       }
 
       .hero-nav a {
-        font-size: 9px;
+        font-size: 1vw;
         letter-spacing: 3px;
         text-transform: uppercase;
         color: var(--text-dim);
@@ -231,9 +234,10 @@
         border-color: var(--accent);
       }
 
-      /* Non-hero panels get a subtle dark tint so text stays readable */
+      /* All panels transparent — bg image lives on #lr-strip */
       .panel {
-        background: rgba(10,10,10,0.0);
+        background: transparent;
+        color: var(--text);
       }
 
       /* ─── SECTION HEADERS ─── */
@@ -309,7 +313,7 @@
       }
 
       .card-title {
-        font-size: 11px;
+        font-size: 2vw;
         letter-spacing: 3px;
         text-transform: uppercase;
         color: var(--heading);
@@ -318,7 +322,7 @@
       }
 
       .card-type {
-        font-size: 9px;
+        font-size:1vw;
         letter-spacing: 2px;
         text-transform: uppercase;
         color: var(--accent);
@@ -337,7 +341,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 16px;
-        max-width: 50%;
+        max-width: 100vw;
       }
 
       .jamCard {
@@ -378,16 +382,16 @@
       }
 
       .jamTitle {
-        font-size: 10px;
-        letter-spacing: 3px;
+        font-size: 1vw;
+        letter-spacing: 0.2vw;
         text-transform: uppercase;
         color: var(--heading);
         font-weight: 700;
       }
 
       .jamSub {
-        font-size: 9px;
-        letter-spacing: 2px;
+        font-size: 0.9vw;
+        letter-spacing: 0.2vw;
         text-transform: uppercase;
         color: var(--text-dim);
         margin-top: 4px;
@@ -516,8 +520,8 @@
       }
 
       #scroll-hint span {
-        font-size: 9px; letter-spacing: 3px;
-        color: var(--text-dim);
+        font-size: 1vw; letter-spacing: 3px;
+        color: var(--text);
         text-transform: uppercase; font-weight: 700;
         font-family: 'Courier New', monospace;
       }
@@ -633,11 +637,16 @@
   <body>
     
     <!-- Fixed video background -->
+    <!--
     <div id="bg-video-wrap">
       <video autoplay muted loop playsinline>
         <source src="images/arabesque.mp4" type="video/mp4">
       </video>
+      <img>
     </div>
+    -->
+
+    <!-- Fixed image background (moved into hero panel below) -->
 
     <!-- Progress bar -->
     <div id="progress-bar"></div>
