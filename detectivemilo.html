@@ -4,58 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lucid Rumination — Rain's Portfolio</title>
+    <title>Detective Milo — Rain's Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="project.css">
     <style>
 
-      /* ─── Inverted color scheme: white bg, black text ─── */
+      /* ─── Color scheme: matches index / lucidRumination ─── */
       :root {
-        --bg: #f0f0f0;
-        --surface: #e4e4e4;
-        --border: #c8c8c8;
-        --accent: #fab011;
-        --text: #333333;
-        --text-dim: #888888;
-        --heading: #0a0a0a;
+        --bg:       #000000;
+        --surface:  #1a1a1a;
+        --border:   #2a2a2a;
+        --accent:   #e07b2a;   /* warm amber — pulled from the game's orange palette */
+        --text:     #c8c8c8;
+        --text-dim: #b4b4b4;
+        --heading:  #f0f0f0;
       }
 
-      html, body {
-        background: var(--bg);
-        color: var(--text);
-      }
-
-      /* ─── Base reset ─── */
       *, *::before, *::after { box-sizing: border-box; }
 
-      /* ─── DESKTOP: vertical scroll on body drives horizontal panel movement ─── */
-      html {
-        scroll-behavior: auto;
-      }
+      html { scroll-behavior: auto; }
 
       body {
-        /* tall enough to scroll — JS sets exact height */
         margin: 0;
         overflow-x: hidden;
+        background: #000;
+        color: var(--text);
+        font-family: 'Courier New', monospace;
       }
 
-      /* Fixed viewport that shows the horizontal strip */
+      /* ─── NAV ─── */
+      nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 60px;
+        background: rgba(15,15,15,0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-name {
+        font-size: 1vw;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--heading);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .nav-links {
+        list-style: none;
+        margin: 0; padding: 0;
+        display: flex; gap: 32px;
+      }
+
+      .nav-links a {
+        font-size: 0.9vw;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--text);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover { color: var(--accent); }
+
+      /* ─── FIXED VIEWPORT ─── */
       #lr-viewport {
         position: fixed;
         inset: 0;
         overflow: hidden;
+        z-index: 1;
+        background: transparent;
       }
 
-      /* Horizontal strip of panels */
+      /* ─── HORIZONTAL STRIP ─── */
       #lr-strip {
         display: flex;
         flex-direction: row;
         height: 100vh;
         width: max-content;
         will-change: transform;
+        background: url('images/milo.png') left center / auto 100% no-repeat;
       }
 
-      /* Each panel = 100vw wide, full height */
+      /* ─── PANEL BASE ─── */
       .panel {
         width: 100vw;
         height: 100vh;
@@ -67,40 +102,57 @@
         justify-content: center;
         padding: 80px 60px 40px;
         box-sizing: border-box;
+        background: transparent;
+        color: var(--text);
       }
 
-      /* Tall content panels: start from top so header is always visible */
       .panel-tall {
         justify-content: flex-start;
+        padding-top: 100px;
       }
+
       .panel-tall .portboxes {
         flex: 1;
         min-height: 0;
       }
 
-      /* 80% height centered vertical divider between every panel */
+      .panel-wide  { width: 150vw; }
+      .panel-xwide { width: 170vw; }
+
+      /* Vertical divider between panels */
       .panel + .panel::before {
         content: '';
         position: absolute;
-        left: 0;
-        top: 10%;
-        height: 80%;
-        width: 2px;
-        background: var(--border, #1e1e1e);
+        left: 0; top: 10%;
+        height: 80%; width: 2px;
+        background: var(--border);
         border-radius: 999px;
+        z-index: 0;
       }
 
-      /* Wide panels for content-heavy sections */
-      .panel-wide { width: 150vw; }
-      .panel-xwide { width: 170vw; }
+      /* Top-to-bottom black gradient on non-hero panels */
+      .panel:not(.panel-hero)::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.45) 30%, transparent 60%);
+        pointer-events: none;
+        z-index: 0;
+      }
 
-      /* Section ghost number */
+      /* Panel content above gradient */
+      .panel:not(.panel-hero) > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Ghost panel number */
       .panel-num {
         position: absolute;
         bottom: 24px; left: 60px;
         font-size: clamp(70px, 10vw, 130px);
         font-weight: 900;
-        color: rgba(0,0,0,0.04);
+        color: rgba(255,255,255,0.0);
         letter-spacing: 6px;
         line-height: 1;
         pointer-events: none;
@@ -118,39 +170,31 @@
       .hero-img {
         position: absolute;
         inset: 0;
-        background: #d8d8d8;
         overflow: hidden;
       }
 
       .hero-img img {
         width: 100%; height: 100%;
         object-fit: cover;
-        opacity: 0.35;
-        filter: grayscale(20%);
+        opacity: 0.55;
+        filter: grayscale(10%);
       }
 
-      .hero-img-placeholder {
-        width: 100%; height: 100%;
-        display: flex; align-items: center; justify-content: center;
-        color: var(--text-dim, #555);
-        font-size: 10px; letter-spacing: 4px;
-        text-transform: uppercase;
-        flex-direction: column; gap: 14px;
-      }
-      .hero-img-placeholder svg { opacity: 0.2; width: 36px; height: 36px; }
-
+      /* Dark left-to-right + bottom fade */
       .hero-overlay {
         position: absolute; inset: 0;
-        background: linear-gradient(to top, rgba(240,240,240,0.97) 20%, rgba(240,240,240,0.5) 60%, transparent),
-                    linear-gradient(to right, rgba(240,240,240,0.7) 0%, transparent 60%);
+        background:
+          linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, transparent 100%),
+          linear-gradient(to top,   rgba(0,0,0,0.6)  0%, transparent 50%);
+        z-index: 1;
       }
 
       .hero-watermark {
         position: absolute; top: 50%; left: 50%;
         transform: translate(-50%, -50%);
-        font-size: clamp(120px, 22vw, 320px);
+        font-size: clamp(140px, 24vw, 360px);
         font-weight: 900; letter-spacing: 8px;
-        color: rgba(0,0,0,0.06);
+        color: rgba(255,255,255,0.03);
         text-transform: uppercase; white-space: nowrap;
         pointer-events: none; user-select: none; line-height: 1;
         font-family: 'Courier New', monospace;
@@ -159,6 +203,55 @@
       .hero-content {
         position: relative; z-index: 2;
         padding: 0 60px 70px;
+      }
+
+      .hero-tag {
+        font-size: 1vw;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .hero-title {
+        font-size: clamp(64px, 10vw, 140px);
+        font-weight: 900;
+        line-height: 0.92;
+        letter-spacing: -2px;
+        color: var(--heading);
+        text-transform: uppercase;
+        margin: 0 0 32px;
+        font-family: 'Courier New', monospace;
+      }
+
+      /* ─── HERO META ROW ─── */
+      .hero-meta {
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+
+      .meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .meta-label {
+        font-size: 8px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 4px;
+      }
+
+      .meta-value {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--heading);
+        text-transform: uppercase;
       }
 
       /* ─── INNER LAYOUT HELPERS ─── */
@@ -176,7 +269,18 @@
         align-items: start;
       }
 
-      /* Override portboxes padding since panels handle spacing */
+      /* ─── SECTION HEADERS ─── */
+      .portHeader {
+        font-size: clamp(20px, 2.5vw, 30px);
+        font-weight: 900;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--heading);
+        margin: 0 0 28px;
+        font-family: 'Courier New', monospace;
+      }
+
+      /* ─── PORTBOXES ─── */
       .panel .portboxes {
         padding: 0;
         border-bottom: none;
@@ -192,13 +296,163 @@
       .panel p {
         font-size: 12px;
         line-height: 1.85;
+        color: var(--text);
         margin-bottom: 12px;
       }
 
-      .panel .subItem {
-        padding: 16px 0;
-        grid-template-columns: 160px 1fr;
+      /* ─── SPEC GRID ─── */
+      .specGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        max-width: 600px;
+      }
+
+      .specCard {
+        background: var(--surface);
+        padding: 20px 24px;
+      }
+
+      /* ─── TAGS ─── */
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 20px;
+      }
+
+      .tag {
+        font-size: 9px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        padding: 4px 10px;
+      }
+
+      /* ─── SUB LIST ─── */
+      .subList {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .subItem {
+        display: grid;
+        grid-template-columns: 180px 1fr;
         gap: 24px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .subItem:last-child { border-bottom: none; }
+
+      .subTitle {
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 700;
+        padding-top: 2px;
+      }
+
+      /* ─── IMAGE PLACEHOLDERS ─── */
+      .imgPlaceholder {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        color: var(--text-dim);
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        aspect-ratio: 16/9;
+        overflow: hidden;
+      }
+
+      .imgPlaceholder img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .imgPlaceholder svg {
+        width: 28px; height: 28px;
+        opacity: 0.3;
+        stroke: var(--text-dim);
+      }
+
+      /* ─── TAKEAWAY GRID ─── */
+      .takeawayGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        max-width: 640px;
+        margin-bottom: 24px;
+      }
+
+      .takeawayItem {
+        background: var(--surface);
+        padding: 20px 24px;
+        font-size: 11px;
+        line-height: 1.7;
+        letter-spacing: 1px;
+        color: var(--text);
+      }
+
+      /* ─── PLAY LINK ─── */
+      .play-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        padding: 10px 20px;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s;
+        margin-top: 8px;
+      }
+
+      .play-link:hover {
+        background: var(--accent);
+        color: #000;
+      }
+
+      /* ─── FOOTER ─── */
+      .panel-footer-row {
+        margin-top: 36px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer-back {
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--accent);
+        text-decoration: none;
+        transition: opacity 0.2s;
+      }
+
+      .footer-back:hover { opacity: 0.7; }
+
+      .footer-label {
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--text-dim);
       }
 
       /* ─── PROGRESS BAR ─── */
@@ -207,7 +461,7 @@
         top: 0; left: 0;
         height: 2px;
         width: 0%;
-        background: var(--accent, #fab011);
+        background: var(--accent);
         z-index: 9999;
         transition: width 0.05s linear;
       }
@@ -221,47 +475,55 @@
         pointer-events: none;
         transition: opacity 0.4s;
       }
+
       #scroll-hint span {
-        font-size: 9px; letter-spacing: 3px;
-        color: var(--text-dim, #555);
+        font-size: 1vw; letter-spacing: 3px;
+        color: var(--text);
         text-transform: uppercase; font-weight: 700;
         font-family: 'Courier New', monospace;
       }
+
       .hint-arrow {
         width: 36px; height: 1px;
-        background: var(--accent, #fab011);
+        background: var(--accent);
         position: relative;
         animation: hintPulse 1.8s ease-in-out infinite;
       }
+
       .hint-arrow::after {
         content: '';
         position: absolute; right: 0; top: -3px;
         width: 6px; height: 6px;
-        border-top: 1px solid var(--accent, #fab011);
-        border-right: 1px solid var(--accent, #fab011);
+        border-top: 1px solid var(--accent);
+        border-right: 1px solid var(--accent);
         transform: rotate(45deg);
       }
+
       @keyframes hintPulse {
         0%, 100% { opacity: 0.4; transform: translateX(0); }
         50%       { opacity: 1;   transform: translateX(6px); }
       }
 
-      /* ─── LAST PANEL MINI-FOOTER ─── */
-      .panel-footer-row {
-        margin-top: 36px;
-        padding-top: 24px;
-        border-top: 1px solid var(--border, #1e1e1e);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      /* ─── CUSTOM CURSOR ─── */
+      .cursor {
+        position: fixed;
+        width: 8px; height: 8px;
+        background: var(--accent);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s;
+        mix-blend-mode: difference;
       }
 
-      /* ═══════════════════════════════════════════
-         MOBILE — ≤900px: revert to normal vertical
-      ═══════════════════════════════════════════ */
+      /* ─── MOBILE ─── */
       @media (max-width: 900px) {
+        nav { padding: 16px 24px; }
+        .nav-links { gap: 16px; }
+        .nav-name { font-size: 3vw; }
+        .nav-links a { font-size: 2.5vw; }
 
-        /* Un-fix the viewport — let body scroll normally */
         body { overflow-x: hidden; overflow-y: auto; }
         #lr-viewport { position: static; overflow: visible; }
         #lr-strip {
@@ -271,7 +533,6 @@
           transform: none !important;
         }
 
-        /* Panels stack vertically */
         .panel,
         .panel-wide,
         .panel-xwide {
@@ -281,12 +542,11 @@
           flex-shrink: unset;
           padding: 80px 24px 48px;
           display: block;
-          border-bottom: 1px solid var(--border, #1e1e1e);
+          border-bottom: 1px solid var(--border);
         }
 
         .panel + .panel::before { display: none; }
 
-        /* Hero stays tall */
         .panel-hero {
           height: 100vh !important;
           padding: 0 !important;
@@ -294,6 +554,7 @@
           flex-direction: column !important;
           justify-content: flex-end !important;
         }
+
         .panel-hero .hero-content { padding: 0 24px 50px; }
 
         .panel-num,
@@ -301,9 +562,9 @@
         #scroll-hint { display: none !important; }
 
         .two-col, .three-col { grid-template-columns: 1fr; gap: 24px; }
-
-        .panel .portboxes { padding: 0; border-bottom: none; }
-        .panel .subItem { grid-template-columns: 1fr; gap: 8px; }
+        .specGrid { grid-template-columns: 1fr 1fr; }
+        .takeawayGrid { grid-template-columns: 1fr; }
+        .subItem { grid-template-columns: 1fr; gap: 8px; }
 
         .panel-footer-row {
           flex-direction: column;
@@ -311,9 +572,9 @@
           text-align: center;
         }
 
-        /* Spacer div invisible on mobile */
         #lr-spacer { display: none; }
       }
+
     </style>
   </head>
   <body>
@@ -342,11 +603,6 @@
       </ul>
     </nav>
 
-    <!--
-      #lr-spacer: invisible tall div that gives the body scroll room.
-      JS sets its height = total horizontal scroll distance.
-      #lr-viewport stays fixed; we translate #lr-strip based on scrollY.
-    -->
     <div id="lr-spacer"></div>
 
     <!-- Fixed viewport -->
@@ -358,33 +614,29 @@
         ══════════════════════════════ -->
         <div class="panel panel-hero">
           <div class="hero-img">
-            <img src="images/lrimg.png" alt="Lucid Rumination" id="heroImg">
-            <div class="hero-img-placeholder" id="heroBg">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-              Key Art / Cover Image
-            </div>
+            <img src="images/milo.png" alt="Detective Milo" id="heroImg">
           </div>
-          <div class="hero-watermark">LR</div>
+          <div class="hero-watermark">DM</div>
           <div class="hero-overlay"></div>
           <div class="hero-content">
-            <div class="hero-tag">Club Project &nbsp;·&nbsp; VGDC Club &nbsp;·&nbsp; UC Irvine</div>
+            <div class="hero-tag">Student Project &nbsp;·&nbsp; UI/UX Team Lead &nbsp;·&nbsp; UC Irvine</div>
             <h1 class="hero-title">Detective<br>Milo</h1>
             <div class="hero-meta">
               <div class="meta-item">
                 <span class="meta-label">Genre</span>
-                <span class="meta-value">Puzzle</span>
+                <span class="meta-value">Narrative Mystery</span>
               </div>
               <div class="meta-item">
                 <span class="meta-label">Engine</span>
                 <span class="meta-value">Unity</span>
               </div>
               <div class="meta-item">
-                <span class="meta-label">Platform</span>
-                <span class="meta-value">PC (Windows)</span>
+                <span class="meta-label">Tools</span>
+                <span class="meta-value">Figma · Illustrator</span>
               </div>
               <div class="meta-item">
-                <span class="meta-label">Duration</span>
-                <span class="meta-value">20 Weeks</span>
+                <span class="meta-label">Team Size</span>
+                <span class="meta-value">20+ Members</span>
               </div>
             </div>
           </div>
@@ -399,22 +651,25 @@
             <h2 class="portHeader">Overview</h2>
             <div class="three-col">
               <div>
-                <p>Lucid Rumination is a first-person psychological horror roguelite developed as a junior-year capstone project at the University of California, Irvine, in collaboration with a small team under the name Jiji Games.</p>
-                <p>The project focused on systems-driven design and full-cycle Unity development, with an emphasis on building cohesive, interdependent gameplay systems within a constrained production timeline.</p>
+                <p>The Brilliant Detective Milo is a narrative-driven mystery game developed as part of a large interdisciplinary team project at UC Irvine, bringing together departments across design, programming, art, audio, writing, and production.</p>
+                <p>The project emphasized collaborative development and iterative playtesting, resulting in a polished visual direction and smooth gameplay experience showcased during presentation.</p>
                 <div class="tags">
-                  <span class="tag">Systems Design</span>
-                  <span class="tag">Gameplay Programming</span>
-                  <span class="tag">AI Implementation</span>
-                  <span class="tag">Optimization</span>
-                  <span class="tag">Scrum</span>
+                  <span class="tag">UI/UX Leadership</span>
+                  <span class="tag">Interface Design</span>
+                  <span class="tag">Figma</span>
+                  <span class="tag">Adobe Illustrator</span>
+                  <span class="tag">Cross-Team Collaboration</span>
                 </div>
               </div>
               <div>
-                <p>Players take on the role of Miki, a coma patient undergoing experimental therapy, navigating procedurally generated environments shaped by memory, trauma, and psychological distortion.</p>
-                <p>The experience blends melee-focused combat, roguelite progression, and narrative-driven design to create a systemically rich and thematically unified gameplay loop.</p>
+                <p>Players take on the role of Detective Milo, investigating mysteries through interrogation, document inspection, and deduction. The game features a fully interactive diegetic UI — case files, suspect folders, witness testimonies, and autopsy reports are all physical objects within the game world.</p>
+                <p>Strong focus on narrative clarity and immersion meant UI had to support rather than interrupt the storytelling experience at every moment.</p>
+                <a class="play-link" href="https://lukashauge.itch.io/detective-milo-prototype" target="_blank">
+                  Play the Prototype →
+                </a>
               </div>
               <div class="imgPlaceholder" style="aspect-ratio:4/3;">
-                <img src="images/lrimg.png" alt="" id="overviewImg">
+                <img src="images/milo.png" alt="Detective Milo Screenshot" id="overviewImg">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
                 Gameplay Screenshot
               </div>
@@ -430,64 +685,81 @@
           <div class="portboxes">
             <h2 class="portHeader">Project Scope</h2>
             <div class="specGrid">
-              <div class="specCard"><div class="meta-label">Development Time</div><div class="meta-value">10 Weeks</div></div>
+              <div class="specCard"><div class="meta-label">My Role</div><div class="meta-value">UI/UX Team Lead</div></div>
               <div class="specCard"><div class="meta-label">Engine</div><div class="meta-value">Unity</div></div>
-              <div class="specCard"><div class="meta-label">Platform</div><div class="meta-value">PC (Windows)</div></div>
-              <div class="specCard"><div class="meta-label">Genre</div><div class="meta-value">FPS Roguelite / Horror</div></div>
-              <div class="specCard"><div class="meta-label">Team</div><div class="meta-value">Jiji Games</div></div>
-              <div class="specCard"><div class="meta-label">My Role</div><div class="meta-value">Systems · AI · Optimization</div></div>
+              <div class="specCard"><div class="meta-label">Dialogue System</div><div class="meta-value">Yarn Spinner</div></div>
+              <div class="specCard"><div class="meta-label">Design Tools</div><div class="meta-value">Figma · Illustrator</div></div>
+              <div class="specCard"><div class="meta-label">Team Size</div><div class="meta-value">20+ Members</div></div>
+              <div class="specCard"><div class="meta-label">Genre</div><div class="meta-value">Narrative Mystery</div></div>
             </div>
           </div>
         </div>
 
         <!-- ══════════════════════════════
-             PANEL 3 — DESIGN GOALS
+             PANEL 3 — RESPONSIBILITIES
         ══════════════════════════════ -->
-        <div class="panel panel-wide">
+        <div class="panel panel-wide panel-tall">
           <span class="panel-num">03</span>
           <div class="portboxes">
-            <h2 class="portHeader">Design Goals</h2>
-            <p style="max-width:560px; margin-bottom:24px;">The primary goal was to explore the design and implementation of multiple high-functioning gameplay systems and ensure their cohesion within a unified player experience.</p>
+            <h2 class="portHeader">Responsibilities</h2>
             <div class="subList">
-              <div class="subItem"><div class="subTitle">Scope Management</div><p style="margin:0;">Scalable scope management under time and resource constraints, requiring continuous reprioritization across the 10-week production window.</p></div>
-              <div class="subItem"><div class="subTitle">Modular AI</div><p style="margin:0;">Development of modular AI systems allowing rapid iteration as design requirements evolved throughout production.</p></div>
-              <div class="subItem"><div class="subTitle">Systems Integration</div><p style="margin:0;">Integration of combat, inventory, AI, and progression systems with clear design intent and minimal coupling.</p></div>
-              <div class="subItem"><div class="subTitle">Narrative Mechanics</div><p style="margin:0;">Reinforcement of psychological themes through mechanics and visual feedback rather than exposition.</p></div>
-              <div class="subItem"><div class="subTitle">Architecture</div><p style="margin:0;">Single-entry architecture for clean initialization, paired with object pooling to hit performance targets.</p></div>
+              <div class="subItem">
+                <div class="subTitle">UI/UX Leadership</div>
+                <p style="margin:0;">Defined the overall user experience direction and ensured consistency across all interface elements. Established UI design standards and visual guidelines, managed task distribution and iteration cycles within the UI/UX team.</p>
+              </div>
+              <div class="subItem">
+                <div class="subTitle">Interface Design</div>
+                <p style="margin:0;">Designed and prototyped all in-game UI elements in Figma — including dialogue interfaces for Yarn Spinner narrative systems, menu systems and navigation flows, HUD elements, and interactive prompts. Visual assets produced in Adobe Illustrator.</p>
+              </div>
+              <div class="subItem">
+                <div class="subTitle">User Experience Design</div>
+                <p style="margin:0;">Mapped user flows for key gameplay interactions, reduced friction in navigation and dialogue, and ensured readability, clarity, and accessibility across all UI elements.</p>
+              </div>
+              <div class="subItem">
+                <div class="subTitle">Cross-Team Collaboration</div>
+                <p style="margin:0;">Coordinated with writers to align UI with dialogue pacing and tone, worked with programmers to ensure designs were technically feasible, and synced with artists to maintain visual consistency across the entire project.</p>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- ══════════════════════════════
-             PANEL 4 — GAMEPLAY SYSTEMS
+             PANEL 4 — DESIGN APPROACH
         ══════════════════════════════ -->
-        <div class="panel panel-xwide panel-tall">
+        <div class="panel panel-wide panel-tall">
+          <span class="panel-num">04</span>
           <div class="portboxes">
-            <h2 class="portHeader">Gameplay Systems</h2>
+            <h2 class="portHeader">Design Approach</h2>
             <div style="display:grid; grid-template-columns:1fr 1px 1fr; gap:0 40px; align-items:start; flex:1; min-height:0; overflow:hidden;">
-              <!-- Left: system descriptions -->
               <div class="subList" style="overflow:hidden;">
-                <div class="subItem"><div class="subTitle">Roguelite Loop</div><p style="margin:0;">Hub preparation → procedurally generated combat rooms → upgrade collection → boss encounters. Death resets runs but retained resources reward long-term investment.</p></div>
-                <div class="subItem"><div class="subTitle">Memory Integrity</div><p style="margin:0;">Weapons degrade with no numerical indicator — deterioration communicated through visual and audio feedback, reinforcing themes of memory loss.</p></div>
-                <div class="subItem"><div class="subTitle">Inventory & Weapons</div><p style="margin:0;">Grid-based inventory inspired by Resident Evil, combined with weapon merging for run-specific builds. Item retention decisions after death make loss a core design pillar.</p></div>
-                <div class="subItem"><div class="subTitle">Companion & Boon System</div><p style="margin:0;">Inspired by Hades — companions offer boons, upgrades, and narrative context, expanding builds while deepening emotional engagement.</p></div>
-                <div class="subItem"><div class="subTitle">Combat & Movement</div><p style="margin:0;">Animation-driven melee combat with precise hitbox alignment and root motion. Emphasizes physicality and responsiveness.</p></div>
+                <div class="subItem">
+                  <div class="subTitle">Iterative Prototyping</div>
+                  <p style="margin:0;">All UI systems developed through rapid iteration cycles, beginning with low-fidelity wireframes and progressing to polished mockups. Playtesting feedback was continuously incorporated to refine usability and clarity at each stage.</p>
+                </div>
+                <div class="subItem">
+                  <div class="subTitle">Narrative-Driven UI</div>
+                  <p style="margin:0;">Given the game's emphasis on storytelling, UI design prioritized clarity and immersion — interfaces were designed to enhance rather than interrupt the narrative experience. Diegetic elements like case files and suspect folders blur the line between UI and world.</p>
+                </div>
+                <div class="subItem">
+                  <div class="subTitle">Scalability & Consistency</div>
+                  <p style="margin:0;">Established reusable UI components and consistent visual patterns to maintain cohesion across the project — especially critical given the 20+ member team and distributed development workflow.</p>
+                </div>
               </div>
               <!-- Vertical divider -->
-              <div style="width:2px; background:var(--border, #1e1e1e); height:80%; align-self:center; border-radius:999px;"></div>
+              <div style="width:2px; background:var(--border); height:80%; align-self:center; border-radius:999px;"></div>
               <!-- Right: screenshot stack -->
               <div style="display:flex; flex-direction:column; gap:8px; height:100%;">
                 <div class="imgPlaceholder" style="flex:1; aspect-ratio:unset;">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                  Hub / Menu UI
+                  Suspect File UI
                 </div>
                 <div class="imgPlaceholder" style="flex:1; aspect-ratio:unset;">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                  Inventory System
+                  Detective's Journal
                 </div>
                 <div class="imgPlaceholder" style="flex:1; aspect-ratio:unset;">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                  Combat Encounter
+                  Interrogation Screen
                 </div>
               </div>
             </div>
@@ -495,31 +767,42 @@
         </div>
 
         <!-- ══════════════════════════════
-             PANEL 5 — TECHNICAL
+             PANEL 5 — KEY CONTRIBUTIONS
         ══════════════════════════════ -->
-        <div class="panel panel-xwide panel-tall">
+        <div class="panel panel-wide panel-tall">
           <span class="panel-num">05</span>
           <div class="portboxes">
-            <h2 class="portHeader">Technical Implementation</h2>
+            <h2 class="portHeader">Key Contributions</h2>
             <div style="display:grid; grid-template-columns:1fr 1px 1fr; gap:0 40px; align-items:start; flex:1; min-height:0; overflow:hidden;">
-              <!-- Left: technical descriptions -->
               <div class="subList" style="overflow:hidden;">
-                <div class="subItem"><div class="subTitle">Modular Enemy AI</div><p style="margin:0;">Behavior separated into perception, locomotion, and attack modules governed by a finite state machine. Modular structure enabled rapid iteration as design shifted.</p></div>
-                <div class="subItem"><div class="subTitle">Procedural Environments</div><p style="margin:0;">Modular room templates assembled procedurally while maintaining thematic consistency — tone evolves from clinical to abstract alongside the narrative.</p></div>
-                <div class="subItem"><div class="subTitle">Animation Pipeline</div><p style="margin:0;">Player and enemy actions driven by Blender animations using root motion with carefully aligned hitboxes for gameplay clarity.</p></div>
-                <div class="subItem"><div class="subTitle">Performance & Architecture</div><p style="margin:0;">Single-entry architecture initializes all core managers through one central game object. Object pooling reduces overhead and keeps the codebase clean and scalable.</p></div>
+                <div class="subItem">
+                  <div class="subTitle">UI Direction</div>
+                  <p style="margin:0;">Led end-to-end UI/UX direction for a large-scale student project — from initial design standards through production-ready delivery, maintaining visual cohesion across all systems.</p>
+                </div>
+                <div class="subItem">
+                  <div class="subTitle">Production Assets</div>
+                  <p style="margin:0;">Designed and delivered all production-ready UI assets and interactive prototypes, including the diegetic document system (case files, witness testimonies, autopsy reports, and suspect folders).</p>
+                </div>
+                <div class="subItem">
+                  <div class="subTitle">Player Experience</div>
+                  <p style="margin:0;">Improved interaction flow and readability through repeated playtesting cycles, iterating on dialogue pacing, document interaction controls, and suspect interrogation screens.</p>
+                </div>
+                <div class="subItem">
+                  <div class="subTitle">Team Communication</div>
+                  <p style="margin:0;">Bridged design, engineering, and narrative teams — translating creative intent into technically feasible, implementable systems while keeping all departments aligned on the shared visual language.</p>
+                </div>
               </div>
               <!-- Vertical divider -->
-              <div style="width:2px; background:var(--border, #1e1e1e); height:80%; align-self:center; border-radius:999px;"></div>
-              <!-- Right: diagrams stacked -->
-              <div style="display:flex; flex-direction:column; gap:12px; height:100%;">
+              <div style="width:2px; background:var(--border); height:80%; align-self:center; border-radius:999px;"></div>
+              <!-- Right: asset previews -->
+              <div style="display:flex; flex-direction:column; gap:8px; height:100%;">
                 <div class="imgPlaceholder" style="flex:1; aspect-ratio:unset;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
-                  AI State Machine Diagram
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                  Witness Testimony Form
                 </div>
                 <div class="imgPlaceholder" style="flex:1; aspect-ratio:unset;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="7" width="6" height="4" rx="1"/><rect x="9" y="3" width="6" height="4" rx="1"/><rect x="9" y="11" width="6" height="4" rx="1"/><rect x="16" y="7" width="6" height="4" rx="1"/><path d="M8 9h1M15 5l1 2M15 13l1-2"/></svg>
-                  Single-Entry Architecture
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  Autopsy Report UI
                 </div>
               </div>
             </div>
@@ -527,42 +810,22 @@
         </div>
 
         <!-- ══════════════════════════════
-             PANEL 6 — PRODUCTION
+             PANEL 6 — TAKEAWAYS
         ══════════════════════════════ -->
         <div class="panel">
           <span class="panel-num">06</span>
           <div class="portboxes">
-            <h2 class="portHeader">Production</h2>
-            <div class="two-col">
-              <div>
-                <p>Development organized using Scrum methodologies with weekly sprints managed through Atlassian tools. Limited team availability required continuous scope adjustment throughout the 10 weeks.</p>
-                <p>Quality was preserved by strategically cutting scope while protecting core systems and polish — a real-world demonstration of time, scope, and quality trade-offs.</p>
-              </div>
-              <div class="imgPlaceholder">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-                Sprint Board / Atlassian
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ══════════════════════════════
-             PANEL 7 — TAKEAWAYS
-        ══════════════════════════════ -->
-        <div class="panel">
-          <span class="panel-num">07</span>
-          <div class="portboxes">
             <h2 class="portHeader">Key Takeaways</h2>
-            <p style="max-width:520px; margin-bottom:24px;">A significant step up from prior game jam and prototype work — hands-on experience across the full production cycle.</p>
+            <p style="max-width:520px; margin-bottom:24px;">A deep dive into leading UI/UX work within a large cross-functional team — balancing aesthetic vision with practical, implementable systems design.</p>
             <div class="takeawayGrid">
-              <div class="takeawayItem">Designing and integrating complex, interdependent systems</div>
-              <div class="takeawayItem">Managing scope and constraints within a team environment</div>
-              <div class="takeawayItem">Building scalable technical architecture in Unity</div>
-              <div class="takeawayItem">Aligning mechanics with narrative and thematic intent</div>
+              <div class="takeawayItem">Leading UI/UX development within a large, cross-functional student team</div>
+              <div class="takeawayItem">Translating design concepts into practical, implementable game systems</div>
+              <div class="takeawayItem">Balancing aesthetic design with usability and player experience goals</div>
+              <div class="takeawayItem">Establishing scalable design systems across a distributed workflow</div>
             </div>
             <div class="panel-footer-row">
-              <a href="index.html" class="footer-back">Back to Projects</a>
-              <span class="footer-label">Lucid Rumination — Jiji Games</span>
+              <a href="index.html" class="footer-back">← Back to Projects</a>
+              <span class="footer-label">Detective Milo — UC Irvine</span>
             </div>
           </div>
         </div>
@@ -578,13 +841,9 @@
         cursor.style.top  = e.clientY + 'px';
       });
 
-      /* ─── Hero image fallbacks ─── */
+      /* ─── Hero image fallback ─── */
       const heroImg = document.getElementById('heroImg');
-      const heroBg  = document.getElementById('heroBg');
-      if (heroImg) {
-        heroImg.addEventListener('load',  () => { if (heroBg) heroBg.style.display = 'none'; });
-        heroImg.addEventListener('error', () => { heroImg.style.display = 'none'; });
-      }
+      if (heroImg) heroImg.addEventListener('error', () => heroImg.style.display = 'none');
       const overviewImg = document.getElementById('overviewImg');
       if (overviewImg) overviewImg.addEventListener('error', () => overviewImg.style.display = 'none');
 
@@ -605,10 +864,8 @@
           strip.style.transform = 'none';
           return;
         }
-
         requestAnimationFrame(() => {
           scrollDist = strip.scrollWidth - window.innerWidth;
-          // Give the body enough height to scroll the full distance
           spacer.style.height = (scrollDist + window.innerHeight) + 'px';
           onScroll();
         });
@@ -619,7 +876,6 @@
         const scrolled  = window.scrollY;
         const clamped   = Math.min(scrolled, scrollDist);
         const progress  = scrollDist > 0 ? clamped / scrollDist : 0;
-
         strip.style.transform = `translateX(${-clamped}px)`;
         progressBar.style.width = (progress * 100) + '%';
         scrollHint.style.opacity = scrolled > 40 ? '0' : '1';
