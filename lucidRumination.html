@@ -87,7 +87,6 @@
         height: 100vh;
         width: max-content;
         will-change: transform;
-        background: url('images/lrimg.png') left center / auto 100% no-repeat;
       }
 
       /* ─── PANEL BASE ─── */
@@ -173,7 +172,8 @@
         overflow: hidden;
       }
 
-      .hero-img img {
+      .hero-img img,
+      .hero-img video {
         width: 100%; height: 100%;
         object-fit: cover;
         opacity: 0.55;
@@ -239,14 +239,14 @@
       }
 
       .meta-label {
-        font-size: 8px;
+        font-size: clamp(10px, 0.75vw, 13px);
         letter-spacing: 3px;
         text-transform: uppercase;
         color: var(--text-dim);
       }
 
       .meta-value {
-        font-size: 13px;
+        font-size: clamp(15px, 1.15vw, 20px);
         font-weight: 700;
         letter-spacing: 1px;
         color: var(--heading);
@@ -293,10 +293,10 @@
       .panel .portHeader { margin-bottom: 28px; }
 
       .panel p {
-        font-size: 12px;
+        font-size: clamp(15px, 1.15vw, 20px);
         line-height: 1.85;
         color: var(--text);
-        margin-bottom: 12px;
+        margin-bottom: 16px;
       }
 
       /* ─── SPEC GRID ─── */
@@ -306,12 +306,26 @@
         gap: 1px;
         background: var(--border);
         border: 1px solid var(--border);
-        max-width: 600px;
+        width: 100%;
+        max-width: 1100px;
       }
 
       .specCard {
         background: var(--surface);
-        padding: 20px 24px;
+        padding: clamp(28px, 3.2vw, 56px) clamp(24px, 2.8vw, 48px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        min-height: clamp(120px, 14vw, 200px);
+      }
+
+      .specCard .meta-label {
+        font-size: clamp(11px, 0.85vw, 15px);
+      }
+
+      .specCard .meta-value {
+        font-size: clamp(18px, 1.5vw, 28px);
       }
 
       /* ─── TAGS ─── */
@@ -323,12 +337,12 @@
       }
 
       .tag {
-        font-size: 9px;
+        font-size: clamp(11px, 0.8vw, 14px);
         letter-spacing: 2px;
         text-transform: uppercase;
         color: var(--accent);
         border: 1px solid var(--accent);
-        padding: 4px 10px;
+        padding: 6px 14px;
       }
 
       /* ─── SUB LIST ─── */
@@ -339,16 +353,16 @@
 
       .subItem {
         display: grid;
-        grid-template-columns: 160px 1fr;
+        grid-template-columns: clamp(140px, 13vw, 210px) 1fr;
         gap: 24px;
-        padding: 16px 0;
+        padding: 18px 0;
         border-bottom: 1px solid var(--border);
       }
 
       .subItem:last-child { border-bottom: none; }
 
       .subTitle {
-        font-size: 10px;
+        font-size: clamp(12px, 0.95vw, 16px);
         letter-spacing: 2px;
         text-transform: uppercase;
         color: var(--accent);
@@ -364,9 +378,9 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 12px;
+        gap: 14px;
         color: var(--text-dim);
-        font-size: 9px;
+        font-size: clamp(11px, 0.85vw, 14px);
         letter-spacing: 3px;
         text-transform: uppercase;
         aspect-ratio: 16/9;
@@ -380,7 +394,7 @@
       }
 
       .imgPlaceholder svg {
-        width: 28px; height: 28px;
+        width: clamp(28px, 2.4vw, 42px); height: clamp(28px, 2.4vw, 42px);
         opacity: 0.3;
         stroke: var(--text-dim);
       }
@@ -398,8 +412,8 @@
 
       .takeawayItem {
         background: var(--surface);
-        padding: 20px 24px;
-        font-size: 11px;
+        padding: 24px 28px;
+        font-size: clamp(13px, 1vw, 17px);
         line-height: 1.7;
         letter-spacing: 1px;
         color: var(--text);
@@ -416,7 +430,7 @@
       }
 
       .footer-back {
-        font-size: 9px;
+        font-size: clamp(11px, 0.8vw, 14px);
         letter-spacing: 3px;
         text-transform: uppercase;
         color: var(--accent);
@@ -427,7 +441,7 @@
       .footer-back:hover { opacity: 0.7; }
 
       .footer-label {
-        font-size: 9px;
+        font-size: clamp(11px, 0.8vw, 14px);
         letter-spacing: 3px;
         text-transform: uppercase;
         color: var(--text-dim);
@@ -595,10 +609,12 @@
         ══════════════════════════════ -->
         <div class="panel panel-hero">
           <div class="hero-img">
-            <img src="images/lrimg.png" alt="Lucid Rumination" id="heroImg">
+            <video id="heroVideo" autoplay muted loop playsinline poster="images/lrimg.png">
+              <source src="images/lrtrailer1.mov" type="video/mp4">
+            </video>
             <div class="hero-img-placeholder" id="heroBg">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-              Key Art / Cover Image
+              Key Art / Cover Video
             </div>
           </div>
           <div class="hero-watermark">LR</div>
@@ -652,8 +668,7 @@
               </div>
               <div class="imgPlaceholder" style="aspect-ratio:4/3;">
                 <img src="images/lrimg.png" alt="" id="overviewImg">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                Gameplay Screenshot
+                
               </div>
             </div>
           </div>
@@ -701,8 +716,7 @@
         <div class="panel panel-xwide panel-tall">
           <div class="portboxes">
             <h2 class="portHeader">Gameplay Systems</h2>
-            <div style="display:grid; grid-template-columns:1fr 1px 1fr; gap:0 40px; align-items:start; flex:1; min-height:0; overflow:hidden;">
-              <!-- Left: system descriptions -->
+            <div style="display:grid; grid-template-columns:1fr 1px 1fr; gap:0 40px; align-items:stretch; flex:1; min-height:0; overflow:hidden;">
               <div class="subList" style="overflow:hidden;">
                 <div class="subItem"><div class="subTitle">Roguelite Loop</div><p style="margin:0;">Hub preparation → procedurally generated combat rooms → upgrade collection → boss encounters. Death resets runs but retained resources reward long-term investment.</p></div>
                 <div class="subItem"><div class="subTitle">Memory Integrity</div><p style="margin:0;">Weapons degrade with no numerical indicator — deterioration communicated through visual and audio feedback, reinforcing themes of memory loss.</p></div>
@@ -715,16 +729,13 @@
               <!-- Right: screenshot stack -->
               <div style="display:flex; flex-direction:column; gap:8px; height:100%;">
                 <div class="imgPlaceholder" style="flex:1; aspect-ratio:unset;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                  Hub / Menu UI
+                  <img src="images/blow.png" alt="" id="gsImg1">
                 </div>
                 <div class="imgPlaceholder" style="flex:1; aspect-ratio:unset;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                  Inventory System
+                  <img src="images/png.png" alt="" id="gsImg2">
                 </div>
                 <div class="imgPlaceholder" style="flex:1; aspect-ratio:unset;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                  Combat Encounter
+                  <img src="images/yep.png" alt="" id="gsImg3">
                 </div>
               </div>
             </div>
@@ -738,7 +749,7 @@
           <span class="panel-num">05</span>
           <div class="portboxes">
             <h2 class="portHeader">Technical Implementation</h2>
-            <div style="display:grid; grid-template-columns:1fr 1px 1fr; gap:0 40px; align-items:start; flex:1; min-height:0; overflow:hidden;">
+            <div style="display:grid; grid-template-columns:1fr 1px 1fr; gap:0 40px; align-items:stretch; flex:1; min-height:0; overflow:hidden;">
               <!-- Left: technical descriptions -->
               <div class="subList" style="overflow:hidden;">
                 <div class="subItem"><div class="subTitle">Modular Enemy AI</div><p style="margin:0;">Behavior separated into perception, locomotion, and attack modules governed by a finite state machine. Modular structure enabled rapid iteration as design shifted.</p></div>
@@ -777,8 +788,7 @@
               </div>
               <div class="imgPlaceholder">
                 <img src="images/trellolucid.png" alt="" id="trellolucid">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-                Sprint Board / Atlassian
+                
               </div>
             </div>
           </div>
@@ -816,12 +826,12 @@
         cursor.style.top  = e.clientY + 'px';
       });
 
-      /* ─── Hero image fallbacks ─── */
-      const heroImg = document.getElementById('heroImg');
-      const heroBg  = document.getElementById('heroBg');
-      if (heroImg) {
-        heroImg.addEventListener('load',  () => { if (heroBg) heroBg.style.display = 'none'; });
-        heroImg.addEventListener('error', () => { heroImg.style.display = 'none'; });
+      /* ─── Hero video fallbacks ─── */
+      const heroVideo = document.getElementById('heroVideo');
+      const heroBg    = document.getElementById('heroBg');
+      if (heroVideo) {
+        heroVideo.addEventListener('loadeddata', () => { if (heroBg) heroBg.style.display = 'none'; });
+        heroVideo.addEventListener('error', () => { heroVideo.style.display = 'none'; });
       }
       const overviewImg = document.getElementById('overviewImg');
       if (overviewImg) overviewImg.addEventListener('error', () => overviewImg.style.display = 'none');
