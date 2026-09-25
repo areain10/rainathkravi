@@ -417,12 +417,16 @@
         display: flex;
         flex-direction: column;
         gap: 0;
-        max-width: 400px;
+        width: clamp(320px, 32vw, 560px);
+        max-width: 100%;
+        flex: 1;
+        min-height: 0;
       }
 
       .contact-photo {
         width: 100%;
-        aspect-ratio: 4/3;
+        flex: 1;
+        min-height: 0;
         object-fit: cover;
         display: block;
         filter: grayscale(20%);
@@ -431,7 +435,8 @@
 
       .contact-photo-placeholder {
         width: 100%;
-        aspect-ratio: 4/3;
+        flex: 1;
+        min-height: 0;
         background: var(--surface);
         border: 1px solid var(--border);
         display: flex; align-items: center; justify-content: center;
@@ -443,11 +448,12 @@
         background: var(--surface);
         border: 1px solid var(--border);
         border-top: none;
-        padding: 24px;
+        padding: clamp(18px, 2vw, 32px);
+        flex-shrink: 0;
       }
 
       .contact-name {
-        font-size: 14px;
+        font-size: clamp(15px, 1.4vw, 22px);
         font-weight: 700;
         letter-spacing: 2px;
         text-transform: uppercase;
@@ -456,7 +462,7 @@
       }
 
       .contact-role {
-        font-size: 9px;
+        font-size: clamp(10px, 0.9vw, 14px);
         letter-spacing: 3px;
         text-transform: uppercase;
         color: var(--accent);
@@ -473,7 +479,7 @@
       }
 
       .contact-row a, .contact-row span {
-        font-size: 10px;
+        font-size: clamp(11px, 0.95vw, 15px);
         letter-spacing: 1px;
         color: var(--text-dim);
         text-decoration: none;
@@ -731,7 +737,7 @@
                 </div>
               </div>
             </a>
-            <a class="projectCard" href="https://docs.google.com/document/d/1eFKXJg5oTOycfV9X6gJVCRdBffq2r_e8fBlHMSBs8FU/edit?usp=sharing" target="_blank">
+            <a class="projectCard" href="https://geminibllllue.itch.io/tnt-nh" target="_blank">
               <img class="card-img" src="images/tomo.png" alt="Tomo No Taiko" onerror="this.style.display='none'">
               <div class="card-overlay"></div>
               <div class="card-body">
@@ -761,21 +767,21 @@
           <span class="panel-num">02</span>
           <h2 class="portHeader">Game Jams</h2>
           <div class="jamGrid">
-            <a class="jamCard" href="https://docs.google.com/document/d/1dp0L1eryOeUqrRKSXNjg2t1BKAdLXz5BRkMJ2hrlBwE/edit?usp=sharing" target="_blank">
+            <a class="jamCard" href="https://areain.itch.io/golden-fish" target="_blank">
               <img class="jamImg" src="images/testimg.png" alt="Golden Fish" onerror="this.style.display='none'">
               <div>
                 <div class="jamTitle">Golden Fish</div>
                 <div class="jamSub">2D Platformer - Boss Rush Jam</div>
               </div>
             </a>
-            <a class="jamCard" href="https://docs.google.com/document/d/1u04oHtX5YjKhuTKv2NKhHhvyUO91vD2MN9qmIcdDc4o/edit?usp=sharing" target="_blank">
+            <a class="jamCard" href="https://areain.itch.io/on-a-silver-platter" target="_blank">
               <img class="jamImg" src="images/onasilverplatter.png" alt="On A Silver Platter" onerror="this.style.display='none'">
               <div>
                 <div class="jamTitle">On A Silver Platter</div>
                 <div class="jamSub">Restaurant Horror - Scream Jam</div>
               </div>
             </a>
-            <a class="jamCard" href="https://docs.google.com/document/d/1uKX_4KyUPviM_sraGf7tbVbxKoaT2dXHwVY6IM6qiU8/edit?usp=sharing" target="_blank">
+            <a class="jamCard" href="https://meadowed.itch.io/message-for-aphrodite" target="_blank">
               <img class="jamImg" src="images/aphrodite.png" alt="Aphrodite's Message" onerror="this.style.display='none'">
               <div>
                 <div class="jamTitle">Aphrodite's Message</div>
@@ -789,17 +795,31 @@
                 <div class="jamSub">2D Party Game - Class Project</div>
               </div>
             </a>
+            <a class="jamCard" href="https://areain.itch.io/down-for-the-count" target="_blank">
+              <img class="jamImg" src="images/dftc.png" alt="Down For The Count" onerror="this.style.display='none'">
+              <div>
+                <div class="jamTitle">Down For The Count</div>
+                <div class="jamSub">2D Digging Game - GMTK GameJam</div>
+              </div>
+            </a>
+            <a class="jamCard" href="https://areain.itch.io/serious-pirouttes" target="_blank">
+              <img class="jamImg" src="images/sp.png" alt="Serious Pirrouttes" onerror="this.style.display='none'">
+              <div>
+                <div class="jamTitle">Serious Pirouettes</div>
+                <div class="jamSub">3D Arcade Game - Juniper's Serious Jam</div>
+              </div>
+            </a>
           </div>
         </div>
 
         <!-- ══════════════════════════════
              PANEL 3 — CONTACT
         ══════════════════════════════ -->
-        <div class="panel" id="servCont">
+        <div class="panel panel-tall" id="servCont">
           <span class="panel-num">03</span>
           <h2 class="portHeader">Contact</h2>
           <div class="contact-card">
-            <img class="contact-photo" src="images/redhair.jpg" alt="Rain" onerror="this.style.display='none'">
+            <img class="contact-photo" src="images/digicam.png" alt="Rain" onerror="this.style.display='none'">
             <div class="contact-info">
               <div class="contact-name">Pornthep (Rain) Athkravisoonthorn</div>
               <div class="contact-role">Game Designer / Producer</div>
@@ -810,7 +830,7 @@
               </div>
             </div>
           </div>
-          <div class="panel-footer-row" style="max-width:400px;">
+          <div class="panel-footer-row" style="max-width:clamp(320px, 32vw, 560px);">
             <a href="https://drive.google.com/file/d/1_CIBUZWDlETuJnPdX2_xAOFBxt5QVq7J/view?usp=sharing" target="_blank" style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);text-decoration:none;">View Resume →</a>
             <span class="footer-label">Rain Athkravisoonthorn</span>
           </div>

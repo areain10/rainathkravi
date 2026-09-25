@@ -37,10 +37,3 @@ window.addEventListener('DOMContentLoaded',()=>{
         
 	
 });
-
-
-
-
-
-
-
