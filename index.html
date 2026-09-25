@@ -14,11 +14,25 @@
         --surface:  #1a1a1a;
         --border:   #2a2a2a;
         --accent:   #22bd3c;
+        /*--text:     #c8c8c8;*/
         --text:     #c8c8c8;
         --text-dim: #b4b4b4;
         --heading:  #f0f0f0;
       }
-
+      @font-face {
+      font-family: 'Amoria';
+      src: 
+          url('font/Market_Deco.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+}
+@font-face {
+      font-family: 'NameFont';
+      src: 
+          url('font/AMORIA.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+}
       *, *::before, *::after { box-sizing: border-box; }
 
       html {
@@ -30,7 +44,7 @@
         overflow-x: hidden;
         background: #000;
         color: var(--text);
-        font-family: 'Courier New', monospace;
+        font-family: 'Amoria',  sans-serif;
       }
 
       /* ─── FIXED VIDEO BACKGROUND ─── */
@@ -177,7 +191,8 @@
         color: rgba(255,255,255,0.03);
         text-transform: uppercase; white-space: nowrap;
         pointer-events: none; user-select: none; line-height: 1;
-        font-family: 'Courier New', monospace;
+        font-family: 'Amoria',  monospace;
+
       }
 
       .hero-content {
@@ -202,7 +217,7 @@
         color: var(--heading);
         text-transform: uppercase;
         margin: 0 0 32px;
-        font-family: 'Courier New', monospace;
+        font-family: 'NameFont',  sans-serif;
       }
 
       .hero-subtitle {
@@ -248,7 +263,7 @@
         text-transform: uppercase;
         color: var(--surface);
         margin: 0 0 28px;
-        font-family: 'Courier New', monospace;
+        font-family: 'Amoria',  sans-serif;
       }
 
       /* ─── PROJECT GRID ─── */
@@ -523,7 +538,7 @@
         font-size: 1vw; letter-spacing: 3px;
         color: var(--text);
         text-transform: uppercase; font-weight: 700;
-        font-family: 'Courier New', monospace;
+        font-family: 'Amoria',  sans-serif;
       }
 
       .hint-arrow {
@@ -549,7 +564,7 @@
 
       /* ─── CUSTOM CURSOR ─── */
       .cursor {
-        position: fixed;
+        position: fixed;44444
         width: 1vw; height: 1vw;
         background: var(--accent);
         border-radius: 50%;
